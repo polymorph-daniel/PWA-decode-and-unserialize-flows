@@ -1,0 +1,242 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Summary HOH Name when failed",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495986"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495986",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_staff-review-edit-link*]!=null"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_ahoh-name*] == null"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247429",
+            "field": "236429169",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_true-nma-app-id*]"
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495745",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247429:aapfull-name*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "name",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_ahoh-name*]"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqid",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_true-nma-app-id*]"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "link",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_staff-review-edit-link*]"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495745",
+              "type": "text",
+              "function": "unset"
+            },
+            "1": {
+              "fieldId": "236495721",
+              "type": "text",
+              "function": "unset"
+            },
+            "2": {
+              "fieldId": "236495840",
+              "type": "text",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495745",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:name*]"
+            },
+            "1": {
+              "fieldId": "236495721",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:uniqid*]"
+            },
+            "2": {
+              "fieldId": "236495840",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:link*]"
+            }
+          }
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_staff-review-edit-link*]==null"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2815387"
+          }
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2841267"
+          }
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815271.xml",
+    "dateProcessed": "20221118 171033"
+  },
+  "_id": "2815271"
+}

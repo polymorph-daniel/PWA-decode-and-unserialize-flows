@@ -1,0 +1,68 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - Set Alternate ID for recerts",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "first",
+          "stepFunction": "customPrep",
+          "eval": "strtoupper(substr( [*item_value_afirstname*] ,0,3))"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "last",
+          "stepFunction": "customPrep",
+          "eval": "strtoupper(substr( [*item_value_alastname*] ,0,2))"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "year",
+          "stepFunction": "customPrep",
+          "eval": "( [*item_value_adate-of-birth*] == &#34;&#34;) ? (date(&#34;Y&#34;)) : (date(&#34;Y&#34;, strtotime( [*item_value_adate-of-birth*] )))"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495747",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:first*][*item_value_pfprepfield:last*][*item_value_pfprepfield:year*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2815386.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

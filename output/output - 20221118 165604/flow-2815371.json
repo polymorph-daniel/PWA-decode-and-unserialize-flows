@@ -1,0 +1,372 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - create/update unit item",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aunitmak*] != &#34;&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247426",
+            "field": "236417238",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aunitmak*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247426:podio_item_id*] != null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247426",
+          "values": {
+            "0": {
+              "fieldId": "236417246",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495755",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247426*]"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247426:podio_item_id*] == null"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247429",
+            "direction_1": "forward",
+            "field_1": "0",
+            "action_2": "done"
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247426",
+          "values": {
+            "0": {
+              "fieldId": "236417230",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236417232",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddress*]"
+            },
+            "2": {
+              "fieldId": "236417233",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressline1*]"
+            },
+            "3": {
+              "fieldId": "236417234",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressline2*]"
+            },
+            "4": {
+              "fieldId": "236417235",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddresscity*]"
+            },
+            "5": {
+              "fieldId": "236417236",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressstate*]"
+            },
+            "6": {
+              "fieldId": "236417237",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddresszip*]"
+            },
+            "7": {
+              "fieldId": "236417238",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitmak*]"
+            },
+            "8": {
+              "fieldId": "236417239",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitbasemak*]"
+            },
+            "9": {
+              "fieldId": "236417240",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_acounty-msa*]"
+            },
+            "10": {
+              "fieldId": "236417241",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247429:aunitmdresults*]"
+            },
+            "11": {
+              "fieldId": "236417242",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247429:aunitmddeliverytypecode*]"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495755",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfnew:27247426*]"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aunitmak*]==null"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247429",
+            "direction_1": "forward",
+            "field_1": "0",
+            "action_2": "done"
+          }
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247426",
+          "values": {
+            "0": {
+              "fieldId": "236417230",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            },
+            "1": {
+              "fieldId": "236417232",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddress*]"
+            },
+            "2": {
+              "fieldId": "236417233",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressline1*]"
+            },
+            "3": {
+              "fieldId": "236417234",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressline2*]"
+            },
+            "4": {
+              "fieldId": "236417235",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddresscity*]"
+            },
+            "5": {
+              "fieldId": "236417236",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddressstate*]"
+            },
+            "6": {
+              "fieldId": "236417237",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaddresszip*]"
+            },
+            "7": {
+              "fieldId": "236417238",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitmak*]"
+            },
+            "8": {
+              "fieldId": "236417239",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitbasemak*]"
+            },
+            "9": {
+              "fieldId": "236417240",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_acounty-msa*]"
+            },
+            "10": {
+              "fieldId": "236417241",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247429:aunitmdresults*]"
+            },
+            "11": {
+              "fieldId": "236417242",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247429:aunitmddeliverytypecode*]"
+            }
+          }
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495755",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfnew:27247426*]"
+            }
+          }
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815371.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Set Up | Status Email",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27436341",
+      "appName": "Appeals",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "238557310"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "([*item_value_application-status*] == &#34;Approved&#34;) ||\r\n([*item_value_application-status*] == &#34;Denied&#34;) ||\r\n([*item_value_application-status*] == &#34;Denied - Missing Docs&#34;)"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "243116211",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step3": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "243116211"
+        }
+      },
+      "step4": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "243116211",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step5": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "([*item_value_application-status*] == &#34;Approved&#34;) ||\r\n([*item_value_application-status*] == &#34;Denied&#34;) ||\r\n([*item_value_application-status*] == &#34;Denied - Missing Docs&#34;)"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_application-status*] == &#34;Approved&#34;"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Email Sent: Approved"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3022613"
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_application-status*] == &#34;Denied&#34;"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Email Sent: Denied"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3022610"
+          }
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_application-status*] == &#34;Denied - Missing Docs&#34;"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Email Sent: Denied - Missing Docs"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3022607"
+          }
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3058875"
+          }
+        }
+      }
+    },
+    "filename": "flow-2889012.xml",
+    "dateProcessed": "20221118 171025"
+  },
+  "_id": "2889012"
+}

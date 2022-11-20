@@ -1,0 +1,79 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - Get approved owner",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*]!=&#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27247424",
+            "direction_1": "forward",
+            "field_1": "236417880",
+            "action_2": "follow",
+            "app_2": "27247432",
+            "direction_2": "forward",
+            "field_2": "236417210",
+            "action_3": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "total",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247432:count-pending-pre-payments*]+1"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417896",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:total*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2815008.xml",
+    "dateProcessed": "20221118 165455"
+  }
+}

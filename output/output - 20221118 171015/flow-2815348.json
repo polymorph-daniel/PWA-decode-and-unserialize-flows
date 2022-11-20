@@ -1,0 +1,339 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - update status date",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495742"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_current_revision_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Reviewed&#34; &amp;&amp; [*item_value_reviewed*] == null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495953",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Only Missing Owner Clearance&#34; &amp;&amp; [*item_value_only-missing-owner-clearance*]== null"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495952",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Pending Quality Control Review&#34; &amp;&amp; [*item_value_pending-quality-control-review*]== null"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495954",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Pending Payment Processing&#34; &amp;&amp; [*item_value_pending-payment-processing*]== null"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495955",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Payment Import&#34; &amp;&amp; [*item_value_payment-import*]== null"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495956",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Payment Sent&#34; &amp;&amp; [*item_value_payment-sent*]== null"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495957",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Denial Pending&#34; &amp;&amp; [*item_value_denial-pending*]== null"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495958",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Denied&#34; &amp;&amp; [*item_value_denied*]== null"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495959",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Partial Payment&#34; &amp;&amp; [*item_value_partial-payment*]== null"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495960",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            }
+          }
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815348.xml",
+    "dateProcessed": "20221118 171032"
+  },
+  "_id": "2815348"
+}

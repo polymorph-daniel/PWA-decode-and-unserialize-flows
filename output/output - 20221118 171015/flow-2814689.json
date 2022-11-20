@@ -1,0 +1,90 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "approved owner code",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247424",
+      "appName": "Owners",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247424",
+            "action_1": "follow",
+            "app_1": "27247432",
+            "direction_1": "forward",
+            "field_1": "236417210",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417210",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247432*]"
+            },
+            "1": {
+              "fieldId": "236417211",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247432:approved-owner-w9-code*]"
+            }
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "relatedAppId": "27247432",
+          "values": {
+            "0": {
+              "fieldId": "236417777",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2814689.xml",
+    "dateProcessed": "20221118 171024"
+  },
+  "_id": "2814689"
+}

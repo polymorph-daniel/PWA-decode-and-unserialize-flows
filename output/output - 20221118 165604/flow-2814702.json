@@ -1,0 +1,77 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Comment - Add Comment to Related Application",
+      "version": "2",
+      "description": null,
+      "triggerType": "Q",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247440",
+      "appName": "Escalation -Tier 2",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_application-id*] != null"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "comment",
+          "stepFunction": "customPrep",
+          "eval": "&#34;New Comment on Related Escalation &#34;.[*item_value_podio_app_item_id_formatted*]. &#34;: &#34;.&#34; &#34;.[*item_value_triggering_comment*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247440",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "reverse",
+            "field_1": "236495982",
+            "action_2": "done"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27254226",
+          "auth": "app",
+          "message": "[*item_value_pfprepfield:comment*]"
+        }
+      }
+    },
+    "filename": "flow-2814702.xml",
+    "dateProcessed": "20221118 165607"
+  }
+}

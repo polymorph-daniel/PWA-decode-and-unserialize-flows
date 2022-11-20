@@ -1,0 +1,88 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Set Up",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27436341",
+      "appName": "Appeals",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2890558"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238872998",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_signature|url*]"
+            }
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "sleep",
+          "stepFunction": "customPrep",
+          "eval": "sleep(5)"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3022600"
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3059142"
+          }
+        }
+      }
+    },
+    "filename": "flow-2890559.xml",
+    "dateProcessed": "20221118 171025"
+  },
+  "_id": "2890559"
+}

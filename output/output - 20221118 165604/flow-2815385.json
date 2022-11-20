@@ -1,0 +1,240 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - update assigned supervisor depending on staff reviewer",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_staff-reviewer*] != &#34;&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247427",
+            "direction_1": "forward",
+            "field_1": "236495728",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "name",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247427:supervisor-name*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:name*]==&#34;vrayner@nanmckay-sub.com&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "supervisorname",
+          "stepFunction": "customPrep",
+          "eval": "&#34;Valerie Rayner&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:name*]==&#34;Ayinde Michael-Khensu&#34;"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "supervisorname",
+          "stepFunction": "customPrep",
+          "eval": "&#34;Ayinde Bakari Michael-Khensu&#34;"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:name*]==&#34;Lucas Cade Schneider&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "supervisorname",
+          "stepFunction": "customPrep",
+          "eval": "&#34;Cade Schneider&#34;"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:name*]!=&#34;vrayner@nanmckay-sub.com&#34; &amp;&amp; [*item_value_pfprepfield:name*]!=&#34;Ayinde Michael-Khensu&#34; &amp;&amp; [*item_value_pfprepfield:name*]!=&#34;Lucas Cade Schneider&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "supervisorname",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247427:supervisor-name*]"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "clearCollected",
+        "stepDetails": {
+          "stepFunction": "clearCollected",
+          "field": "[*item_field_pfref:27247427*]"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_pfprepfield:supervisorname*]"
+          }
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247427:podio_item_id*]!=null"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495727",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247427*]"
+            }
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247427:podio_item_id*]==null"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495727",
+              "type": "app",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815385.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

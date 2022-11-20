@@ -1,0 +1,90 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update - Can&#39;t &#34;Resolve&#34; IF not Resolution Comments",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247440",
+      "appName": "Escalation -Tier 2",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236418053"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236418053",
+          "operator": "eq",
+          "value": "Resolved"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_resolution-comments*] == null"
+        }
+      },
+      "step3": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236418053",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "You must add a resolution comment before the escalation can be marked as resolved. Please update resolution comment field and mark as &#34;resolved&#34; again."
+        }
+      }
+    },
+    "filename": "flow-2814704.xml",
+    "dateProcessed": "20221118 165607"
+  }
+}

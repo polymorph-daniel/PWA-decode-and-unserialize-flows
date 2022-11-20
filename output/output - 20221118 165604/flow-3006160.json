@@ -1,0 +1,204 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual | Compliance | Select for State Review",
+      "version": "2",
+      "description": "simplified workflow to update payment logs and applications when state review is needed.",
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495930",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236495931",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "2": {
+              "fieldId": "242089165",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            },
+            "3": {
+              "fieldId": "pfint_item_tags",
+              "type": "internal",
+              "function": "value",
+              "value": "[*item_value_item_tags*],state-review-[Current Date (Y-m-d)]"
+            }
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Notice\r\n---\r\nThis Application has been selected for State Review"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247437*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247437:status*] == &#34;Pending&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247437",
+          "values": {
+            "0": {
+              "fieldId": "236417871",
+              "type": "app",
+              "function": "unset"
+            },
+            "1": {
+              "fieldId": "236417878",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "Notice\r\n---\r\nThis Application has been selected for State Review"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27948911",
+            "field": "244486143",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_true-nma-app-id*]"
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27948911:podio_item_id*] == null"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27948911",
+          "values": {
+            "0": {
+              "fieldId": "244486143",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_true-nma-app-id*]"
+            },
+            "1": {
+              "fieldId": "244747261",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-3006160.xml",
+    "dateProcessed": "20221118 165610"
+  }
+}

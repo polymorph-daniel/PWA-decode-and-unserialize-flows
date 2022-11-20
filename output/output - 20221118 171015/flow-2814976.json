@@ -1,0 +1,84 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create- Search for application",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247439",
+      "appName": "Data Set - Adjustments",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495721",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_appid*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495979",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_pfref:27254226:related-adjustment*].&#34;,&#34;.[*item_value_podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236418031",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27254226*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2814976.xml",
+    "dateProcessed": "20221118 171021"
+  },
+  "_id": "2814976"
+}

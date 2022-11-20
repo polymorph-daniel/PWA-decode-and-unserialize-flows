@@ -1,0 +1,132 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Assign Project Staff",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27436341",
+      "appName": "Appeals",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "oneAndDone",
+          "stepFunction": "customPrep",
+          "eval": "&#34;nope&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247427",
+            "view": "53391717",
+            "auth": "app",
+            "limit": ""
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "sortCollected",
+        "stepDetails": {
+          "stepFunction": "sortCollected",
+          "relapp": "27247427",
+          "orderfield": "238703732",
+          "orderdir": "ASC"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238557311",
+              "type": "contact",
+              "function": "value",
+              "value": "[*item_field_pfref:27247427:member*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247427*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:oneAndDone*] == &#34;nope&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247427",
+          "values": {
+            "0": {
+              "fieldId": "238703732",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "oneAndDone",
+          "stepFunction": "customPrep",
+          "eval": "&#34;yep&#34;"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      }
+    },
+    "filename": "flow-2890558.xml",
+    "dateProcessed": "20221118 171025"
+  },
+  "_id": "2890558"
+}

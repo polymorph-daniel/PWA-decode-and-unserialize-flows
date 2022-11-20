@@ -1,0 +1,107 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "update status",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247424",
+      "appName": "Owners",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_giact-verification-response*] == &#34;Pass&#34; || [*item_value_giact-verification-response*] == &#34;AcceptWithRisk&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417177",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            }
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2814687"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_giact-verification-code*] ==&#34;ND02&#34; || [*item_value_giact-verification-response-2*] == &#34;RiskAlert&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417177",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814675.xml",
+    "dateProcessed": "20221118 171024"
+  },
+  "_id": "2814675"
+}

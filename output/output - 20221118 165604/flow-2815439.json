@@ -1,0 +1,295 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - Adjustment Send Email Update (Review Finalized status)",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] != &#34;No&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247439",
+            "direction_1": "forward",
+            "field_1": "236495979",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247430",
+            "direction_1": "forward",
+            "field_1": "236495782",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247424",
+            "direction_1": "forward",
+            "field_1": "236495806",
+            "action_2": "done"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247439:totalapprovedadjustedassistance*]&gt;0"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "totalutil",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247439:gas*]+[*item_value_pfref:27247439:electric*]+[*item_value_pfref:27247439:water*]+[*item_value_pfref:27247439:trash*]+[*item_value_pfref:27247439:sewer*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "totalother",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247439:othertenantfees*]+[*item_value_pfref:27247439:otherownerfees*]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247424:auth-email*]!=null"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "oemail",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247424:auth-email*]"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247424:auth-email*]==null &amp;&amp; [*item_value_aowner-email*]!=null"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "oemail",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_aowner-email*]"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:oemail*]!= null"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_pfprepfield:oemail*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "flow",
+          "replyAddress": "miami.onlinepha@nanmckay.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "[*item_value_true-nma-app-id*]: Payment Processed Detail",
+          "message": "<p><span style=&#34;font-size: 8pt; color: #ffffff;&#34;>You have received an important message from SC Stay Plus</span></p>\r\n<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>Dear [*item_value_applicant-name*] and [*item_value_pfref:27247424:fname*],</p>\r\n<p>This email confirms that our staff has evaluated and approved the application number [*item_value_true-nma-app-id*] for [*item_value_applicant-name*] residing at [*item_value_aaddress*] through<strong> SC Stay Plus COVID19 </strong>Emergency Rental Assistance Program.</p>\r\n<p>The Total Amount Approved is $[*item_value_pfref:27247439:totalapprovedadjustedassistance*] and details are as follows:</p>\r\n<p>The amount <strong>Approved for Arrears</strong> is $[*item_value_pfref:27247439:rentalarrears*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Prospective Payments</strong> is $[*item_value_pfref:27247439:rentalstipends*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Utilities </strong>is $[*item_value_pfprepfield:totalutil*] corresponding as follows:</p>\r\n<table style=&#34;height: 296px; width: 483.526px;&#34;>\r\n<tbody>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Utility</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Gas</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethegaspayment*]</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>$[*item_value_pfref:27247439:gas*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Electric</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivetheelectricpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:electric*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Sewer</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethesewerpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:sewer*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Trash</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethetrashpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:trash*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Water</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethewaterpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:water*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>The amount <strong>Approved for Other Fees </strong>is $[*item_value_pfprepfield:totalother*] corresponding as follows:</p>\r\n<table style=&#34;width: 413px; height: 158px;&#34;>\r\n<tbody>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Tenant</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:othertenantfees*]</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Landlord/Owner</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:otherownerfees*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p><strong>By accepting this payment the property owner acknowledges and accepts the following terms: </strong></p>\r\n<ol>\r\n<li>I am the property owner (or authorized agent for the owner) of the above referenced property and I am authorized to receive payments.\r\n<ul>\r\n<li>I agree not to pursue eviction based on rent amounts reimbursed by these funds and agree to dismiss any pending eviction case that is based on or seeks to recover the reimbursed arrears.</li>\r\n<li>I may bring an eviction case in the future if Applicant fails to pay future rent due after the funds of this award has been exhausted or if the award amounts does not cover all amounts due.</li>\r\n</ul>\r\n</li>\r\n<li>All payees acknowledged above understand that ERAP funds are to be used only for expenses that are not paid by other sources of financial assistance. All payees agree to repay the duplicative assistance as directed by the Agency.</li>\r\n<li>Nothing in this Agreement precludes the owner/agent from using any and all remedies available under law, including the institution of eviction proceedings against the Applicant, if the Applicant fails to pay any future rent due after the date of this award, or otherwise violates the terms of tenancy.</li>\r\n</ol>\r\n<p>If you have any questions, please contact our Customer Care team from Monday to Friday 8am-5pm ET at (803) 336-3420, or simply reply to this email.</p>\r\n<p>Thank you,</p>\r\n<p>The SC Stay Plus Team</p>\r\n<p>This email thread is for communications related <strong>ONLY</strong> to the SC Stay Plus program. Do not REPLY with an inquiry or by sending documents that may pertain to another applicant.</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aemail*]!= null"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_aemail*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "flow",
+          "replyAddress": "miami.onlinepha@nanmckay.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "[*item_value_true-nma-app-id*]: Payment Processed Detail",
+          "message": "<p><span style=&#34;font-size: 8pt; color: #ffffff;&#34;>You have received an important message from SC Stay Plus</span></p>\r\n<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>Dear [*item_value_applicant-name*] and [*item_value_pfref:27247424:fname*],</p>\r\n<p>This email confirms that our staff has evaluated and approved the application number [*item_value_true-nma-app-id*] for [*item_value_applicant-name*] residing at [*item_value_aaddress*] through<strong> SC Stay Plus COVID19 </strong>Emergency Rental Assistance Program.</p>\r\n<p>The Total Amount Approved is $[*item_value_pfref:27247439:totalapprovedadjustedassistance*] and details are as follows:</p>\r\n<p>The amount <strong>Approved for Arrears</strong> is $[*item_value_pfref:27247439:rentalarrears*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Prospective Payments</strong> is $[*item_value_pfref:27247439:rentalstipends*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Utilities </strong>is $[*item_value_pfprepfield:totalutil*] corresponding as follows:</p>\r\n<table style=&#34;height: 296px; width: 483.526px;&#34;>\r\n<tbody>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Utility</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Gas</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethegaspayment*]</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>$[*item_value_pfref:27247439:gas*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Electric</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivetheelectricpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:electric*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Sewer</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethesewerpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:sewer*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Trash</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethetrashpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:trash*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Water</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethewaterpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:water*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>The amount <strong>Approved for Other Fees </strong>is $[*item_value_pfprepfield:totalother*] corresponding as follows:</p>\r\n<table style=&#34;width: 413px; height: 158px;&#34;>\r\n<tbody>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Tenant</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:othertenantfees*]</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Landlord/Owner</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:otherownerfees*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p><strong>By accepting this payment the property owner acknowledges and accepts the following terms: </strong></p>\r\n<ol>\r\n<li>I am the property owner (or authorized agent for the owner) of the above referenced property and I am authorized to receive payments.\r\n<ul>\r\n<li>I agree not to pursue eviction based on rent amounts reimbursed by these funds and agree to dismiss any pending eviction case that is based on or seeks to recover the reimbursed arrears.</li>\r\n<li>I may bring an eviction case in the future if Applicant fails to pay future rent due after the funds of this award has been exhausted or if the award amounts does not cover all amounts due.</li>\r\n</ul>\r\n</li>\r\n<li>All payees acknowledged above understand that ERAP funds are to be used only for expenses that are not paid by other sources of financial assistance. All payees agree to repay the duplicative assistance as directed by the Agency.</li>\r\n<li>Nothing in this Agreement precludes the owner/agent from using any and all remedies available under law, including the institution of eviction proceedings against the Applicant, if the Applicant fails to pay any future rent due after the date of this award, or otherwise violates the terms of tenancy.</li>\r\n</ol>\r\n<p>If you have any questions, please contact our Customer Care team from Monday to Friday 8am-5pm ET at (803) 336-3420, or simply reply to this email.</p>\r\n<p>Thank you,</p>\r\n<p>The SC Stay Plus Team</p>\r\n<p>This email thread is for communications related <strong>ONLY</strong> to the SC Stay Plus program. Do not REPLY with an inquiry or by sending documents that may pertain to another applicant.</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "makePdf",
+        "stepDetails": {
+          "stepFunction": "makePdf",
+          "layout": "Letter",
+          "fileName": "Payment Processed Detail",
+          "header": "",
+          "content": "<p><span style=&#34;font-size: 8pt; color: #ffffff;&#34;>You have received an important message from SC Stay Plus</span></p>\r\n<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>Dear [*item_value_applicant-name*] and [*item_value_pfref:27247424:fname*],</p>\r\n<p>This email confirms that our staff has evaluated and approved the application number [*item_value_true-nma-app-id*] for [*item_value_applicant-name*] residing at [*item_value_aaddress*] through<strong> SC Stay Plus COVID19 </strong>Emergency Rental Assistance Program.</p>\r\n<p>The Total Amount Approved is $[*item_value_pfref:27247439:totalapprovedadjustedassistance*] and details are as follows:</p>\r\n<p>The amount <strong>Approved for Arrears</strong> is $[*item_value_pfref:27247439:rentalarrears*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Prospective Payments</strong> is $[*item_value_pfref:27247439:rentalstipends*]</p>\r\n<p>Payee: [*item_value_pfref:27247439:whowillreceivetherentalpayment*]</p>\r\n<p>The amount <strong>Approved for Utilities </strong>is $[*item_value_pfprepfield:totalutil*] corresponding as follows:</p>\r\n<table style=&#34;height: 296px; width: 483.526px;&#34;>\r\n<tbody>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Utility</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 39px;&#34;>\r\n<td style=&#34;height: 39px; width: 40.0469px;&#34;>\r\n<p>Gas</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 351.344px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethegaspayment*]</p>\r\n</td>\r\n<td style=&#34;height: 39px; width: 216.766px;&#34;>\r\n<p>$[*item_value_pfref:27247439:gas*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Electric</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivetheelectricpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:electric*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Sewer</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethesewerpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:sewer*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Trash</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethetrashpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:trash*]</p>\r\n</td>\r\n</tr>\r\n<tr style=&#34;height: 40px;&#34;>\r\n<td style=&#34;width: 40.0469px; height: 40px;&#34;>\r\n<p>Water</p>\r\n</td>\r\n<td style=&#34;width: 351.344px; height: 40px;&#34;>\r\n<p>[*item_value_pfref:27247439:whowillreceivethewaterpayment*]</p>\r\n</td>\r\n<td style=&#34;width: 216.766px; height: 40px;&#34;>\r\n<p>$[*item_value_pfref:27247439:water*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>The amount <strong>Approved for Other Fees </strong>is $[*item_value_pfprepfield:totalother*] corresponding as follows:</p>\r\n<table style=&#34;width: 413px; height: 158px;&#34;>\r\n<tbody>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Payee</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>Total Amount</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Tenant</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:othertenantfees*]</p>\r\n</td>\r\n</tr>\r\n<tr>\r\n<td style=&#34;width: 111.734px;&#34;>\r\n<p>Landlord/Owner</p>\r\n</td>\r\n<td style=&#34;width: 285.266px;&#34;>\r\n<p>$[*item_value_pfref:27247439:otherownerfees*]</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p><strong>By accepting this payment the property owner acknowledges and accepts the following terms: </strong></p>\r\n<ol>\r\n<li>I am the property owner (or authorized agent for the owner) of the above referenced property and I am authorized to receive payments.\r\n<ul>\r\n<li>I agree not to pursue eviction based on rent amounts reimbursed by these funds and agree to dismiss any pending eviction case that is based on or seeks to recover the reimbursed arrears.</li>\r\n<li>I may bring an eviction case in the future if Applicant fails to pay future rent due after the funds of this award has been exhausted or if the award amounts does not cover all amounts due.</li>\r\n</ul>\r\n</li>\r\n<li>All payees acknowledged above understand that ERAP funds are to be used only for expenses that are not paid by other sources of financial assistance. All payees agree to repay the duplicative assistance as directed by the Agency.</li>\r\n<li>Nothing in this Agreement precludes the owner/agent from using any and all remedies available under law, including the institution of eviction proceedings against the Applicant, if the Applicant fails to pay any future rent due after the date of this award, or otherwise violates the terms of tenancy.</li>\r\n</ol>\r\n<p>If you have any questions, please contact our Customer Care team from Monday to Friday 8am-5pm ET at (803) 336-3420, or simply reply to this email.</p>\r\n<p>Thank you,</p>\r\n<p>The SC Stay Plus Team</p>\r\n<p>This email thread is for communications related <strong>ONLY</strong> to the SC Stay Plus program. Do not REPLY with an inquiry or by sending documents that may pertain to another applicant.</p>",
+          "footer": "",
+          "saveTo": "",
+          "toFolder": "",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247424",
+            "direction_1": "forward",
+            "field_1": "236495806",
+            "action_2": "done",
+            "folderType": "",
+            "specificFolder": "",
+            "parentFolder": "",
+            "subFolderName": ""
+          },
+          "pdfVersion": 2,
+          "pdfCustomWidth": "",
+          "pdfCustomHeight": "",
+          "margin": "Default",
+          "pdfMarginCustomTop": 0,
+          "pdfMarginCustomBottom": 0,
+          "pdfMarginCustomLeft": "10",
+          "pdfMarginCustomRight": "10"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] == &#34;No&#34;"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "# Automated Email Blocked\r\nStaff review updated this item to &#34;Send Email: No&#34;"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815439.xml",
+    "dateProcessed": "20221118 165612"
+  }
+}

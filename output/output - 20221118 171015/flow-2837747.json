@@ -1,0 +1,123 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Copy of Locked - Update Log Times",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247434",
+      "appName": "Batch Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_batch-id-2*] == 339"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "date",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;Ymd&#34;, strtotime( [*item_value_current_date*]  ) )"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "dateplus2",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;Ymd&#34;, strtotime( [*item_value_current_date*] . &#34; +2 weekdays&#34; ) )"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "time",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;his&#34;, strtotime( [*item_value_current_date_time*]) )"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247434",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417871",
+            "action_2": "follow",
+            "app_2": "27254226",
+            "direction_2": "forward",
+            "field_2": "236417879",
+            "action_3": "done"
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "relatedAppId": "27247437",
+          "values": {
+            "0": {
+              "fieldId": "236417874",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            },
+            "1": {
+              "fieldId": "236417892",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:date*]"
+            },
+            "2": {
+              "fieldId": "236417893",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:dateplus2*]"
+            },
+            "3": {
+              "fieldId": "236417885",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:time*]"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2837747.xml",
+    "dateProcessed": "20221118 171023"
+  },
+  "_id": "2837747"
+}

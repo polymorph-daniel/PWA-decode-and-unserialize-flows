@@ -1,0 +1,85 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update Address in Main App",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247429",
+      "appName": "Data Set - Applications",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "242443043"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "242443043",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495719",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aapnmaappid*]"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "add1",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_aapaddressline1*].&#39; &#39;.[*item_value_aapaddressline2*].&#39; &#39;.[*item_value_aapaddresscity*].&#39; &#39;.[*item_value_aapaddressstate*].&#39; &#39;.[*item_value_aapaddresspostalcode*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": 0,
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495750",
+              "type": "location",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:add1*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-3019684.xml",
+    "dateProcessed": "20221118 165452"
+  }
+}

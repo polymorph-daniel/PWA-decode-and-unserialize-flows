@@ -1,0 +1,142 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - SCR739 Text",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aphone*]!= null"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Priority Review&#34; || [*item_value_rapplication-status*]== &#34;Pending Review&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "message",
+          "stepFunction": "customPrep",
+          "eval": "&#34;Your SC Stay Plus application is incomplete. Please submit the required documentation ASAP to ensure your application gets processed. Complete your application at schousing.com&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Reviewed&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "message",
+          "stepFunction": "customPrep",
+          "eval": "&#34;SC Stay Plus: Action Required. Your application is missing documentation. We are unable to fully process or fund your request until we receive it. Access the application portal via schousing.com to complete your application.&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "phone",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#39;/\\s+/&#39;, &#39;&#39;,preg_replace(&#34;/[^0-9]/&#34;,&#34; &#34;,&#39;current(array_slice( explode( &#34;:&#34;, [*item_value_aphone*] )))&#39;))"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "json",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;Application Number&#39; =&gt; [*item_value_true-nma-app-id*],\r\n  &#39;Status&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;Message&#39; =&gt; [*item_value_pfprepfield:message*],\r\n&#39;phone&#39; =&gt; [*item_value_pfprepfield:phone*],\r\n))"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://prod-173.westus.logic.azure.com:443/workflows/9d338b6ef4e74ebaa407443617deb9de/triggers/manual/paths/invoke?api-version=2016-06-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=bnOhbMZ6Mu4Z9XuU5MOxw594zZSl_W5GfsAWV1tVSfE&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "flow",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:json*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "SMS Sent\r\nDate: [*item_value_current_date*]\r\nText: [*item_value_pfprepfield:message*]"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815400.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

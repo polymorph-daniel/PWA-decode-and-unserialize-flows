@@ -1,0 +1,157 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual | Melissa Data | Mailing",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "([*item_value_mailing-address-line-1*] != &#34;&#34;)"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://personator.melissadata.net/v3/WEB/ContactVerify/doContactVerify&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "return",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "GET",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "format=json&amp;id=bvKSktWzGhScKExH-67sRq**nSAcwXpxhQ0PC2lXxuDAZ-**&amp;act=Check&amp;cols=DeliveryIndicator,CountyName&amp;a1=[*item_value_mailing-address-line-1*]&amp;a2=[*item_value_mailing-address-line-2*]&amp;postal=[*item_value_mailing-address-zip-code*]&amp;city=[*item_value_mailing-address-city*]&amp;state=[*item_value_mailing-address-state*]",
+            "post": "",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "",
+            "follow": 0
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "json",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "md1",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;AddressLine1&#34;]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdresponse",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;Results&#34;]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdkey",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;MelissaAddressKey&#34;]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdbasekey",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;MelissaAddressKeyBase&#34;]"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mddeliveryindicator",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;DeliveryIndicator&#34;]"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdcountyname",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;CountyName&#34;]"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "239437851",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdkey*]"
+            },
+            "1": {
+              "fieldId": "239437852",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdbasekey*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "[*item_value_pfprepfield:return*]"
+        }
+      }
+    },
+    "filename": "flow-2913718.xml",
+    "dateProcessed": "20221118 165610"
+  }
+}

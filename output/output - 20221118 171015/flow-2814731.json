@@ -1,0 +1,99 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create- Search for direct deposit",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247432",
+      "appName": "Approved Owners",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247433",
+            "field": "236417790",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_tax-identification-number*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247433:podio_item_id*]!=null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417775",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247433*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247433",
+          "values": {
+            "0": {
+              "fieldId": "236417814",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814731.xml",
+    "dateProcessed": "20221118 171024"
+  },
+  "_id": "2814731"
+}

@@ -1,0 +1,55 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "\u03a9 Fix Caleb Kinlaw&#39;s emails",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247421",
+      "appName": "EMails",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247421",
+            "view": "53378639",
+            "auth": "31190",
+            "limit": ""
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27247421",
+          "values": {
+            "0": {
+              "fieldId": "pfint_item_tags",
+              "type": "internal",
+              "function": "value",
+              "value": "ckinlaw_fix"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2888609.xml",
+    "dateProcessed": "20221118 165608"
+  }
+}

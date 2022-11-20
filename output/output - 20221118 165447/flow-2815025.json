@@ -1,0 +1,111 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Only allow changes by certain users Payment Hold",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417878"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getPrevious",
+        "stepDetails": {
+          "stepFunction": "getPrevious"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_current_revision_by*] != &#34;Pre-Payment Log&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_current_revision_by*]"
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247427:pre-payment-log-access*] != &#34;Yes&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417878",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_pfprev:payment-hold*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815025.xml",
+    "dateProcessed": "20221118 165455"
+  }
+}

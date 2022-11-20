@@ -1,0 +1,138 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - notify Nathan batch is close to 1000 related payment items",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247434",
+      "appName": "Batch Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417823"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_auto-count*]==700 || [*item_value_auto-count*]&gt;700"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_notify-nathan-batch-is-close-to-reaching-1000-payments*]==null &amp;&amp; [*item_value_status*] == &#34;Open&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": 0,
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "npaufve@nanmckay.com",
+          "fromName": "Alert Batch [*item_value_batch-id*] is close to 1000 payments",
+          "withReplies": "mail",
+          "replyAddress": "",
+          "ccAddress": "",
+          "bccAddress": "",
+          "subject": "Batch [*item_value_batch-id-2*] is close to 1000 payments",
+          "message": "<p>Hey Nathan,</p>\r\n<p>Batch [*item_value_batch-id-2*] is close to reaching 1000 payments. Please change status to Locked.</p>\r\n<p>[*item_value_item_url_link*]</p>\r\n<p>Thanks!</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": 0,
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "cspellman@nanmckay.com",
+          "fromName": "Alert Batch [*item_value_batch-id*] is close to 1000 payments",
+          "withReplies": "mail",
+          "replyAddress": "",
+          "ccAddress": "",
+          "bccAddress": "",
+          "subject": "Batch [*item_value_batch-id-2*] is close to 1000 payments",
+          "message": "<p>Hey Candace,</p>\r\n<p>Batch [*item_value_batch-id-2*] is close to reaching 1000 payments. Please change status to Locked.</p>\r\n<p>[*item_value_item_url_link*]</p>\r\n<p>Thanks!</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417820",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Batch status changed to Locked because it is close to 1000 payments"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814969.xml",
+    "dateProcessed": "20221118 165456"
+  }
+}

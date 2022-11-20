@@ -1,0 +1,353 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Create Actions",
+      "version": "2",
+      "description": "5-26 - Removed reference to triggering a flow that doesnt exist.\r\n\r\n6-14 - Removed flow that triggers &#34;Version 1&#34; which hasnt ben ran in at least the last 60 days.  DG",
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247430",
+      "appName": "Data Set - Staff Review",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2943154"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "current0306",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;Y-m-d&#34;, strtotime([*item_value_current_date_time*]))"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "update0306",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;Y-m-d&#34;, strtotime([*item_value_update-date*]))"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:current0306*]==[*item_value_pfprepfield:update0306*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_start-time*]!=null"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "startTime",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_start-time*].&#34; -4 hours&#34;))  "
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "startTimeH",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H&#34;, strtotime([*item_value_pfprepfield:startTime*]))"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "updateTimeH",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H&#34;, strtotime([*item_value_update-date*]))"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "startTimeM",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;i&#34;, strtotime([*item_value_pfprepfield:startTime*]))"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "updateTimeM",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;i&#34;, strtotime([*item_value_update-date*]))"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "differenceM",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:updateTimeM*]-[*item_value_pfprepfield:startTimeM*]"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "submittime",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_submit-date|start*].&#34; -1 hour&#34;))  \r\n"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Submittime2",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_submit-date|start*].&#34; -1 hour&#34;))  \r\n"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "updatetime",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_update-date|start*].&#34;-5 hours&#34;))"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "updatetime2",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_update-date|start*]))  "
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "updatetime3",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;H:i&#34;, strtotime([*item_value_update-date|start*]))"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:updateTimeM*] &gt; [*item_value_pfprepfield:startTimeM*]"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration2",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "actualTime",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:updateTimeM*] == [*item_value_pfprepfield:startTimeM*]"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration2",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "actualTime",
+          "stepFunction": "customPrep",
+          "eval": "(([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60)+ [*item_value_pfprepfield:differenceM*] +3"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:updateTimeM*] &lt; [*item_value_pfprepfield:startTimeM*]"
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration",
+          "stepFunction": "customPrep",
+          "eval": "((([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60) + (60-([*item_value_pfprepfield:startTimeM*]) +[*item_value_pfprepfield:updateTimeM*])+3)-60"
+        }
+      },
+      "step29": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "duration2",
+          "stepFunction": "customPrep",
+          "eval": "((([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60) + (60-([*item_value_pfprepfield:startTimeM*]) +[*item_value_pfprepfield:updateTimeM*])+3)-60"
+        }
+      },
+      "step30": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "actualTime",
+          "stepFunction": "customPrep",
+          "eval": "((([*item_value_pfprepfield:updateTimeH*]-[*item_value_pfprepfield:startTimeH*])*60) + (60-([*item_value_pfprepfield:startTimeM*]) +[*item_value_pfprepfield:updateTimeM*])+3)-60"
+        }
+      },
+      "step31": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step32": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "Start: [*item_value_pfprepfield:startTime*]\r\n\r\nSubmit: [*item_value_pfprepfield:submittime*]\r\nSubmit 2: [*item_value_pfprepfield:Submittime2*]\r\n\r\nUpdate: [*item_value_pfprepfield:updatetime*]\r\nUpdate 2: [*item_value_pfprepfield:updatetime2*]\r\nUpdate 3: [*item_value_pfprepfield:updatetime3*]\r\n\r\nDuration: [*item_value_pfprepfield:duration*]\r\nDuration 2: [*item_value_pfprepfield:duration2*]"
+        }
+      },
+      "step33": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417706",
+              "type": "number",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:actualTime*]"
+            }
+          }
+        }
+      },
+      "step34": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step35": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2815194"
+          }
+        }
+      },
+      "step36": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814996.xml",
+    "dateProcessed": "20221118 165449"
+  }
+}

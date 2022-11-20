@@ -1,0 +1,179 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Eviction Received Email",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495950"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495950",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_current_revision_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] != &#34;No&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "emailAddresses",
+          "stepFunction": "customPrep",
+          "eval": "strip_tags([*item_value_aemail*])"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:emailAddresses*]!=null"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_pfprepfield:emailAddresses*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "flow",
+          "replyAddress": "scstayplus@schousing.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "[*item_value_ahoh-name*] - [*item_value_true-nma-app-id*]: Eviction Resources",
+          "message": "<p><span style=&#34;font-size: 8pt; color: #ffffff;&#34;>You have received an important message from SC Stay Plus</span></p>\r\n<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>[*item_value_ahoh-name*] ,</p>\r\n<p>Facing eviction or housing instability? Here are a few resources for you to consider while we process your SC Stay Plus application:</p>\r\n<p>If you have received an eviction notice or are concerned that you are about to get evicted, you can reach out to SC Legal Services to get support on your situation. You can reach them online by <a href=&#34;https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsclegal.org%2F&data=04%7C01%7Cstucker%40nanmckay.com%7C3902def60e5c43d671be08d9745b981b%7Cdb52cda560944bd3bd8868bacf9f8324%7C0%7C0%7C637668759030208283%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=LZzfOZ5yBOvl741d%2FSI2urdbJyRx1j%2B%2FJTKKh7Wx1E4%3D&reserved=0&#34;>clicking here</a> or by calling 888.346.5592.</p>\r\n<p>Facing a housing crisis can be emotionally challenge for your entire family. SC Hopes is offering a free program to provide emotional support and guide you and your family to community resources. You can reach SC Hopes at 844.724.6737 or <a href=&#34;https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsc-hopes.org%2F&data=04%7C01%7Cstucker%40nanmckay.com%7C3902def60e5c43d671be08d9745b981b%7Cdb52cda560944bd3bd8868bacf9f8324%7C0%7C0%7C637668759030208283%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=V%2B3b7W%2B7Tsv7hqWDOLlo25k1E16K%2Bw%2B%2BteDW0Kyz7q0%3D&reserved=0&#34;>online by clicking here</a>.</p>\r\n<p>The Consumer Financial Protection Bureau, Federal Housing Finance Agency, Department of Veteran Affairs, and Urban Development worked together to create a housing assistance website to help renters during the coronavirus pandemic. <a href=&#34;https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgo.usa.gov%2FxHXQg&data=04%7C01%7Cstucker%40nanmckay.com%7C3902def60e5c43d671be08d9745b981b%7Cdb52cda560944bd3bd8868bacf9f8324%7C0%7C0%7C637668759030218280%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&sdata=zqUhF%2BM0OkeDz60HAEh6g8696zZD%2BJ1pf3%2FGfr89Dho%3D&reserved=0&#34;>Please click here for more information on available assistance</a>.</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*]==&#34;Pending Review&#34;"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "8"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Eviction Received"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] == &#34;No&#34;"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "# Automated Email Blocked\r\nStaff review updated this item to &#34;Send Email: No&#34;"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815407.xml",
+    "dateProcessed": "20221118 171031"
+  },
+  "_id": "2815407"
+}

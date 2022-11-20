@@ -1,0 +1,120 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update with Approved Owner",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247424",
+      "appName": "Owners",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247424",
+            "action_1": "follow",
+            "app_1": "27247432",
+            "direction_1": "both",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247424",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "both",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:rownerw9*]!=null"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:rw9code*] != [*item_value_pfref:27254226:approved-owner-w9-code*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "relatedAppId": "27247432",
+          "values": {
+            "0": {
+              "fieldId": "236417777",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "0",
+          "auth": "app",
+          "message": "Owner W9 updated to approved W9 code: [*item_value_w9-code*]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814687.xml",
+    "dateProcessed": "20221118 165456"
+  }
+}

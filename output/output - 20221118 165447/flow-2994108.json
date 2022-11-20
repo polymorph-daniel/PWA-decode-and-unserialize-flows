@@ -1,0 +1,180 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "\u03a9 Manual repair ERA1/2 - update",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "appID",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:true-nma-app-id*]"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "follow",
+            "app_2": "27254226",
+            "direction_2": "forward",
+            "field_2": "236495778",
+            "action_3": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonthsBoth",
+          "stepFunction": "customPrep",
+          "eval": "&#39;&#39;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "0"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonthsBoth",
+          "stepFunction": "customPrep",
+          "eval": "trim([*item_value_pfprepfield:uniqueMonthsBoth*].&#39;,&#39;.[*item_value_pfref:27254226:unique-months-paid*],&#39;,&#39;)"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:count*]+1"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "foo",
+          "stepFunction": "customPrep",
+          "eval": "foo(); function foo() {\r\n  $ERA1 = &#34;L320PR0010&#34;;\r\n  $ERA2 = &#34;L320PS0010&#34;;\r\n\r\n  $appID = substr([*item_value_pfprepfield:appID*], 0, 5);\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_pfprepfield:uniqueMonthsBoth*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417905",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $ERA1 = &#34;L320PR0010&#34;;\r\n  $ERA2 = &#34;L320PS0010&#34;;\r\n\r\n  $appID = substr([*item_value_pfprepfield:appID*], 0, 5);\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_pfprepfield:uniqueMonthsBoth*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "1": {
+              "fieldId": "236417906",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $ERA1 = &#34;L320_0070&#34;;\r\n  $ERA2 = &#34;L320_0071&#34;;\r\n\r\n  $appID = substr([*item_value_pfprepfield:appID*], 0, 5);\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_pfprepfield:uniqueMonthsBoth*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "2": {
+              "fieldId": "236417907",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $ERA1 = &#34;51C60000&#34;;\r\n  $ERA2 = &#34;51C70011&#34;;\r\n\r\n  $appID = substr([*item_value_pfprepfield:appID*], 0, 5);\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_pfprepfield:uniqueMonthsBoth*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "3": {
+              "fieldId": "236417908",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $ERA1 = &#34;L3201CRACT21&#34;;\r\n  $ERA2 = &#34;L3201ARPRA21&#34;;\r\n\r\n  $appID = substr([*item_value_pfprepfield:appID*], 0, 5);\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_pfprepfield:uniqueMonthsBoth*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "4": {
+              "fieldId": "pfint_item_tags",
+              "type": "internal",
+              "function": "value",
+              "value": "A-ERA-Patch-[*item_value_pfprepfield:count*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2994332"
+          }
+        }
+      }
+    },
+    "filename": "flow-2994108.xml",
+    "dateProcessed": "20221118 165453"
+  }
+}

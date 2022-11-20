@@ -1,0 +1,112 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - SCR739 Email",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] != &#34;No&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aemail*] != null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rapplication-status*] == &#34;Pending Review&#34; || [*item_value_rapplication-status*] == &#34;Priority Review&#34; || [*item_value_rapplication-status*] == &#34;Reviewed&#34; "
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_aemail*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "mail",
+          "replyAddress": "scstayplus@schousing.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "SC Stay Plus Action Required: Submit Documentation",
+          "message": "<p><span data-contrast=&#34;auto&#34;>This is an important message from </span><a href=&#34;https://schousing.com/Home/SC-Stay-Plus&#34;><span data-contrast=&#34;none&#34;>SC Stay Plus</span></a><span data-contrast=&#34;auto&#34;>.</span></p>\r\n<p><span data-contrast=&#34;auto&#34;><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></span></p>\r\n<p><span data-contrast=&#34;auto&#34;>Your emergency rental assistance application is missing documentation. We are unable to review, process, or fund your request until we receive this documentation. </span></p>\r\n<p><span data-contrast=&#34;auto&#34;>If you are receiving this email, you are missing the following documents noted below. To complete your application, </span><strong><span data-contrast=&#34;auto&#34;>you will need to submit the missing documents on the portal </span></strong><span data-contrast=&#34;auto&#34;>HERE (</span><a href=&#34;https://southcarolina.onlinepha.com/en-US/Upload/&#34;><span data-contrast=&#34;none&#34;>https://southcarolina.onlinepha.com/en-US/Upload/</span></a><span data-contrast=&#34;auto&#34;>)</span><span data-contrast=&#34;auto&#34;>. </span></p>\r\n<ul>\r\n<li><span data-contrast=&#34;auto&#34;>Household Information: [*item_value_rhousehold-members*]. If &#34;Pending&#34;, we need proof of identity to be submitted.</span></li>\r\n<li><span data-contrast=&#34;auto&#34;>Lease Information: [*item_value_rlease*]. If &#34;Pending&#34;, we need lease or proof of residency to be submitted.</span></li>\r\n<li><span data-contrast=&#34;auto&#34;>Owner Information: [*item_value_rowner*]. If &#34;Pending&#34;, we need proof of ownership and/or property management agreement to be submitted.</span></li>\r\n<li><span data-contrast=&#34;auto&#34;>Utility Information: [*item_value_r-utilities*]. If &#34;Pending&#34;, we need the respected bill information to be submitted. </span></li>\r\n</ul>\r\n<p><span data-contrast=&#34;auto&#34;>If you need assistance with providing this information, you can visit one of our in-person support centers across the state. You will be able to find a time and location that best fits your schedule. </span><a href=&#34;https://schousing.com/Home/SC-Stay-Plus&#34;><span data-contrast=&#34;none&#34;>Click here for more information</span></a><span data-contrast=&#34;auto&#34;> on in-person support and to find a location near you. </span></p>\r\n<p><strong><span data-contrast=&#34;auto&#34;>Questions? Contact us:</span></strong> <br /><span data-contrast=&#34;auto&#34;>Phone: 1-800-476-0412 (toll-free) | 803-336-3420 (direct)</span> <br /><span data-contrast=&#34;auto&#34;>Email: </span><a href=&#34;mailto:scstayplus@schousing.com&#34;><span data-contrast=&#34;none&#34;>scstayplus@schousing.com</span></a><span data-contrast=&#34;auto&#34;> &ndash; please allow up to two business days for a response</span> <br /><br /><span data-contrast=&#34;auto&#34;>If you want to check the status of your application &ndash; </span><a href=&#34;https://southcarolina.onlinepha.com/en-US/&#34;><span data-contrast=&#34;none&#34;>click here to visit the online portal</span></a><span data-contrast=&#34;auto&#34;>. </span> <br /><br /><span data-contrast=&#34;auto&#34;>Warm regards,</span> <br /><span data-contrast=&#34;auto&#34;>The SC Stay Plus team</span></p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] == &#34;No&#34;"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "# Automated Email Blocked\r\nStaff review updated this item to &#34;Send Email: No&#34;"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815401.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

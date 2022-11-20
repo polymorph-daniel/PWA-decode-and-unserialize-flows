@@ -1,0 +1,88 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Email - Reply Log",
+      "version": "2",
+      "description": null,
+      "triggerType": "R",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247435",
+            "field": "236417834",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_true-nma-app-id*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247435:podio_item_id*]!=null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27247435",
+          "values": {
+            "0": {
+              "fieldId": "236417836",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236417837",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247435",
+          "auth": "app",
+          "message": "From: [*item_value_email_from_name*]\r\nSubject: [*item_value_email_subject*]\r\nFrom Email: [*item_value_email_from_address*]\r\nBody: [*item_value_email_body_cleansed*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815384.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

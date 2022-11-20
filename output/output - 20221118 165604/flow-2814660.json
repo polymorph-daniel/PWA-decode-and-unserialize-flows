@@ -1,0 +1,132 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Comment - set email status",
+      "version": "2",
+      "description": null,
+      "triggerType": "Q",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247420",
+      "appName": "Service Requests",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "senderemail",
+          "stepFunction": "customPrep",
+          "eval": "trim(str_replace(&#34;)&#34;,&#34;&#34;,explode(&#34;(&#34;, explode(&#34;To: &#34;,[*item_value_triggering_comment*])[0])[1])) "
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_triggering_comment*], &#34;@&#34;) &amp;&amp; stristr([*item_value_triggering_comment*], &#34;.&#34;)"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_pfprepfield:senderemail*], &#34;@schousing.com&#34;)  "
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417107",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "New email reply. Please review"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "!stristr([*item_value_pfprepfield:senderemail*], &#34;@schousing.com&#34;) || [*item_value_pfprepfield:senderemail*] == &#34;&#34;"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417127",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:senderemail*]"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814660.xml",
+    "dateProcessed": "20221118 165608"
+  }
+}

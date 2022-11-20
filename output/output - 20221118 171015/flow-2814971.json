@@ -1,0 +1,64 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update- Failed Batch",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247434",
+      "appName": "Batch Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417820"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236417820",
+          "operator": "eq",
+          "value": "Payment Failed"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Batch payment failed. Please investigate the reason of failure"
+        }
+      }
+    },
+    "filename": "flow-2814971.xml",
+    "dateProcessed": "20221118 171023"
+  },
+  "_id": "2814971"
+}

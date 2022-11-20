@@ -1,0 +1,296 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - create/update tenant item",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assn*] != &#34;&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247425",
+            "field": "236417221",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_assn*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247425:podio_item_id*] != null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247425",
+          "values": {
+            "0": {
+              "fieldId": "236417227",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_pfref:27247425:related-full-apps*].&#34;,&#34;.[*item_value_podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495744",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247425*]"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247425:podio_item_id*] == null"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aalternate-id*] != null"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247425",
+            "field": "236417228",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aalternate-id*]"
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247425:podio_item_id*] != null"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495744",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247425*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247425",
+          "values": {
+            "0": {
+              "fieldId": "236417227",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_pfref:27247425:related-full-apps*].&#34;,&#34;.[*item_value_podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assn*] == null"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aalternate-id*] != null"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247425",
+            "field": "236417228",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aalternate-id*]"
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247425:podio_item_id*] != null"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247425",
+          "values": {
+            "0": {
+              "fieldId": "236417227",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_pfref:27247425:related-full-apps*].&#34;,&#34;.[*item_value_podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495744",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247425*]"
+            }
+          }
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815404.xml",
+    "dateProcessed": "20221118 165448"
+  }
+}

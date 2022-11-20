@@ -1,0 +1,117 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - check for duplicates same AltID",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495747",
+            "condition": "eq",
+            "ignoreself": "1",
+            "value": "[*item_value_aalternate-id*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*]!=null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495856",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236495857",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_related-applications-with-same-alternate-id*].&#34;,&#34;.[*item_value_pfref:27254226:podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495856",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236495857",
+              "type": "app",
+              "function": "calc",
+              "value": "[*item_value_pfref:27254226:related-applications-with-same-alternate-id*].&#34;,&#34;.[*item_value_podio_item_id*]"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      }
+    },
+    "filename": "flow-2815364.xml",
+    "dateProcessed": "20221118 171032"
+  },
+  "_id": "2815364"
+}

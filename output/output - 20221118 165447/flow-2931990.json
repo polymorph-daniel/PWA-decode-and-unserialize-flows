@@ -1,0 +1,212 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Application Status Override",
+      "version": "2",
+      "description": "DG: i&#39;ve removed the webhook for appliation status over ride to avoid payment logs being generated. Soozie and I are monitoring 6-14\r\n\r\nDG: 6/16 added permissions check",
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247430",
+      "appName": "Data Set - Staff Review",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_application-statusoverride*] != &#34;&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "C",
+            "ignoreself": 0,
+            "value": "[*item_value_staff-member*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if someone is found by name match on the Project Staff app\r\n[*item_value_pfref:27247427:podio_item_id*] != &#34;&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if the person found does have permisisons, proceed\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Quality Control Specialist&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Supervisor&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Manager&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Project Manager&#34;) &gt; -1)"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495721",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_nma-app-id*]"
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_application-statusoverride*]"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": "1",
+          "collectedAppId": "27254226",
+          "auth": "app",
+          "message": "# Application Status Override by [*item_value_staff-member*]: [*item_value_application-statusoverride*]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if the person found does not have permissions, revert.\r\n!((stripos([*item_value_pfref:27247427:title*], &#34;Quality Control Specialist&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Supervisor&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Manager&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Project Manager&#34;) &gt; -1))"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "# Permissions Error\r\n[*item_value_staff-member*] does not have permissions to use the &#34;Status Override&#34; function"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27254226",
+          "auth": "app",
+          "message": "# Permissions Error\r\n[*item_value_staff-member*] does not have permissions to use the &#34;Status Override&#34; function"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "stucker@nanmckay.com",
+          "auth": "gf",
+          "message": "# Permissions Error\r\n[*item_value_staff-member*] does not have permissions to use the &#34;Status Override&#34; function\r\n[*item_value_item_url_link*]"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// No match found in the Project Staff App\r\n[*item_value_pfref:27247427:podio_item_id*] == &#34;&#34;"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "# Permissions Error\r\nUnable to use &#34;Status Override&#34; function [*item_value_staff-member*] did not make a match in the Project Staff app. Please make sure the name spelling matches records in the Project Staff."
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27254226",
+          "auth": "app",
+          "message": "# Permissions Error\r\nUnable to use &#34;Status Override&#34; function [*item_value_staff-member*] did not make a match in the Project Staff app. Please make sure the name spelling matches records in the Project Staff."
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "stucker@nanmckay.com",
+          "auth": "gf",
+          "message": "# Permissions Error\r\nUnable to use &#34;Status Override&#34; function [*item_value_staff-member*] did not make a match in the Project Staff app. Please make sure the name spelling matches records in the Project Staff.\r\n[*item_value_item_url_link*]"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2931990.xml",
+    "dateProcessed": "20221118 165450"
+  }
+}

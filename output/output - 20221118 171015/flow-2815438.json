@@ -1,0 +1,197 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - Create Entity in SQL for Recerts",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495780",
+          "operator": "eq",
+          "value": "Recertification"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247430",
+            "direction_1": "forward",
+            "field_1": "236495782",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247424",
+            "direction_1": "forward",
+            "field_1": "236495806",
+            "action_2": "done"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "amt",
+          "stepFunction": "customPrep",
+          "eval": "([*item_value_rapplication-status*]  == &#34;Pending Payment Processing&#34;) ? [*item_value_pfref:27247430:total-assistance-approved*] : ([*item_value_rapplication-status*]  == &#34;Payment Import&#34;) ?  [*item_value_pfref:27247430:total-assistance-approved*] : ([*item_value_rapplication-status*]  == &#34;Payment Sent&#34;) ?  [*item_value_pfref:27247430:total-assistance-approved*]: &#34;0.00&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "statusportal",
+          "stepFunction": "customPrep",
+          "eval": "([*item_value_rapplication-status*] == &#34;Payment Sent&#34;) ? &#34;Payment Sent&#34; : ([*item_value_sub-status*] == &#34;Approved&#34;) ? &#34;Payment Sent&#34; : \r\n[*item_value_sub-status*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "MonthlyRent",
+          "stepFunction": "customPrep",
+          "eval": "strval([*item_value_amonthly-rent*])"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "OwnerInfo",
+          "stepFunction": "customPrep",
+          "eval": "strval([*item_value_pfref:27247424:owner-name*].&#34;,&#34;.[*item_value_pfref:27247424:address*].&#34;,&#34;.[*item_value_pfref:27247424:address*].&#34;,&#34;.[*item_value_pfref:27247424:city*].&#34;,&#34;.[*item_value_pfref:27247424:state*].&#34;,&#34;.[*item_value_pfref:27247424:auth-phone*].&#34;,&#34;.[*item_value_pfref:27247424:auth-email*])"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247430:total-assistance-approved*] != null"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;UniqueID&#39; =&gt; [*item_value_nma-app-id*],\r\n  &#39;ApplicationDate&#39; =&gt; [*item_value_adate-application-received*],\r\n  &#39;ApplicationStatus&#39; =&gt; [*item_value_pfprepfield:statusportal*],\r\n  &#39;ApplicationDecisionDate&#39; =&gt; [*item_value_rapproved-date*],\r\n  &#39;ApprovedAmount&#39; =&gt; strval([*item_value_pfprepfield:amt*]),\r\n  &#39;DatePaymentExpected&#39; =&gt; [*item_value_paymentrundate*],\r\n  &#39;InternalStatus&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;MemberCount&#39; =&gt; [*item_value_afamily-size*],\r\n  &#39;MonthlyRent&#39; =&gt; [*item_value_pfprepfield:MonthlyRent*],\r\n  &#39;OwnerInfo&#39; =&gt; [*item_value_pfprepfield:OwnerInfo*],\r\n  &#39;fName&#39; =&gt; [*item_value_afirstname*],\r\n  &#39;lName&#39; =&gt; [*item_value_alastname*],\r\n  &#39;Phone&#39; =&gt; [*item_value_aphone*],\r\n  &#39;Email&#39; =&gt; [*item_value_aemail*],\r\n  &#39;A1&#39;=&gt; [*item_value_aaddressline1*],\r\n  &#39;A2&#39; =&gt; [*item_value_aaddressline2*],\r\n  &#39;City&#39; =&gt; [*item_value_aaddresscity*],\r\n  &#39;Zip&#39; =&gt; [*item_value_aaddresszip*],\r\n  &#39;DOB&#39; =&gt; date(&#34;Y-m-d&#34;, strtotime([*item_value_adate-of-birth*])),\r\n  &#39;Last4SSN&#39; =&gt; substr([*item_value_assn*], -4)\r\n))"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247430:total-assistance-approved*] == null "
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;UniqueID&#39; =&gt; [*item_value_nma-app-id*],\r\n  &#39;ApplicationDate&#39; =&gt; [*item_value_adate-application-received*],\r\n  &#39;ApplicationStatus&#39; =&gt; [*item_value_pfprepfield:statusportal*],\r\n  &#39;ApplicationDecisionDate&#39; =&gt; [*item_value_rapproved-date*],\r\n  &#39;ApprovedAmount&#39; =&gt; &#34;0.00&#34;,\r\n  &#39;DatePaymentExpected&#39; =&gt; [*item_value_paymentrundate*],\r\n  &#39;InternalStatus&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;MemberCount&#39; =&gt; [*item_value_afamily-size*],\r\n  &#39;MonthlyRent&#39; =&gt; [*item_value_pfprepfield:MonthlyRent*],\r\n  &#39;OwnerInfo&#39; =&gt; [*item_value_pfprepfield:OwnerInfo*],\r\n  &#39;fName&#39; =&gt; [*item_value_afirstname*],\r\n  &#39;lName&#39; =&gt; [*item_value_alastname*],\r\n  &#39;Phone&#39; =&gt; [*item_value_aphone*],\r\n  &#39;Email&#39; =&gt; [*item_value_aemail*],\r\n  &#39;A1&#39;=&gt; [*item_value_aaddressline1*],\r\n  &#39;A2&#39; =&gt; [*item_value_aaddressline2*],\r\n  &#39;City&#39; =&gt; [*item_value_aaddresscity*],\r\n  &#39;Zip&#39; =&gt; [*item_value_aaddresszip*],\r\n  &#39;DOB&#39; =&gt; date(&#34;Y-m-d&#34;, strtotime([*item_value_adate-of-birth*])),\r\n  &#39;Last4SSN&#39; =&gt; substr([*item_value_assn*], -4)\r\n))"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "URL",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://prod-147.westus.logic.azure.com:443/workflows/a9abd23ddaae494aa4c73554bb5d30af/triggers/manual/paths/invoke?api-version=2016-06-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=1FvBsNcnY9n2aTGlR3aln8z9FILWIxjff4GT1E41x-I&#34;"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "POST",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:URL*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:JSON*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "RESULT",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:POST*]"
+        }
+      }
+    },
+    "filename": "flow-2815438.xml",
+    "dateProcessed": "20221118 171029"
+  },
+  "_id": "2815438"
+}

@@ -1,0 +1,105 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update - Create Adjustment Form and Generate Link",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "245497011"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "245497011",
+          "operator": "eq",
+          "value": "Create Adjustment Form and Generate Link"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247430",
+            "direction_1": "forward",
+            "field_1": "236495782",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;UniqueID&#39; =&gt; [*item_value_true-nma-app-id*],\r\n  &#39;Name&#39; =&gt; [*item_value_applicant-name*],\r\n  &#39;ArrTotal&#39; =&gt; [*item_value_pfref:27247430:ftotalarrears*],\r\n  &#39;StiTotal&#39; =&gt; [*item_value_pfref:27247430:ftotalstipends*],\r\n  &#39;TotalAssistance&#39; =&gt; [*item_value_ftotal-assistance-approved*],\r\n  &#39;UtilTotal&#39; =&gt; [*item_value_pfref:27247430:total-utilities-approved*],\r\n  &#39;OtherFeesTotal&#39; =&gt; [*item_value_pfref:27247430:total-other-fees-approved*],\r\n  &#39;StaffMember&#39; =&gt; [*item_value_current_revision_by*]\r\n \r\n))"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "URL",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://prod-119.westus.logic.azure.com:443/workflows/98331b276a014cd9b83ece484a0163c4/triggers/manual/paths/invoke?api-version=2016-06-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=YDphKYnghmzoxUkpubwerHZbulwb6R9uL9DrfeaVphY&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "POST",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:URL*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:JSON*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "RESULT",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:POST*]"
+        }
+      }
+    },
+    "filename": "flow-3128598.xml",
+    "dateProcessed": "20221118 165609"
+  }
+}

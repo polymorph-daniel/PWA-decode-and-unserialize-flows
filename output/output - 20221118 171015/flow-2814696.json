@@ -1,0 +1,117 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Create - Creation Actions",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247440",
+      "appName": "Escalation -Tier 2",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_escalated-contact-email-caller*] != null"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247440",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236418032",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_escalated-contact-email-caller*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "mail",
+          "replyAddress": "scstayplus@schousing.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "Escalation Received - [*item_value_podio_app_item_id_formatted*] ( [*item_value_pfref:27254226:name-nma-app-id*] )",
+          "message": "<p><span style=&#34;font-size: 10pt;&#34;>Hello!</span></p>\r\n<p><span style=&#34;font-size: 10pt;&#34;>You are receiving this email to confirm your submission of the escalation - [*item_value_podio_app_item_id_formatted*] ( [*item_value_pfref:27254226:name-nma-app-id*] ).</span></p>\r\n<p><span style=&#34;font-size: 10pt;&#34;>Details of Escalation: [*item_value_reason-for-escalation-notes*] </span></p>\r\n<p><span style=&#34;font-size: 10pt;&#34;>Date of Submission: [*item_value_current_date*]</span></p>\r\n<p><span style=&#34;font-size: 10pt;&#34;>Link to Escalation: [*item_value_item_url_link*]</span></p>\r\n<p> </p>\r\n<p><span style=&#34;font-size: 10pt;&#34;><strong>You will receive a separate email upon resolution of your escalation.</strong></span></p>\r\n<p> </p>\r\n<p><span style=&#34;font-size: 10pt;&#34;><em>Thank you,</em></span></p>\r\n<p><span style=&#34;font-size: 10pt;&#34;><em>SC Stay Plus</em></span></p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_application-id*] != null"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "relatedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495982",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "1": {
+              "fieldId": "236495981",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814696.xml",
+    "dateProcessed": "20221118 171026"
+  },
+  "_id": "2814696"
+}

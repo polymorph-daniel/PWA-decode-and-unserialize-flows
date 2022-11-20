@@ -1,0 +1,255 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update | Compliance | State Review Updated",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495931"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247434",
+            "view": "52878786",
+            "auth": "app",
+            "limit": ""
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_state-review-status*] == &#34;1st Fail&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "14"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Notice\r\n---\r\n[*item_value_state-review-check-user*] failed State compliance check."
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "Notice\r\n---\r\n[*item_value_state-review-check-user*] failed State compliance check."
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_state-review-status*] == &#34;Pass&#34; || [*item_value_state-review-status*] == &#34;Pass with Comments&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247437*]"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247437:payment-hold*] != &#34;&#34;"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "triggerCollected",
+        "stepDetails": {
+          "stepFunction": "triggerCollected",
+          "appId": "27247437",
+          "flow": "3085909"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "Notice\r\n---\r\n[*item_value_state-review-check-user*] Passed State compliance check."
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_state-review-status*] == &#34;Pass-Application Denied&#34; "
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247437*]"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247437:payment-hold*] != &#34;&#34;"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "triggerCollected",
+        "stepDetails": {
+          "stepFunction": "triggerCollected",
+          "appId": "27247437",
+          "flow": "3141000"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "Notice\r\n---\r\n[*item_value_state-review-check-user*] Pass-Application Denied State compliance check."
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815352.xml",
+    "dateProcessed": "20221118 165614"
+  }
+}

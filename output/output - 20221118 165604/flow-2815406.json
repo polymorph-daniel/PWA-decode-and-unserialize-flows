@@ -1,0 +1,52 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - Force DocuPhase",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495811",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495811",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2815406.xml",
+    "dateProcessed": "20221118 165613"
+  }
+}

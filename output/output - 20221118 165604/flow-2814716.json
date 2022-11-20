@@ -1,0 +1,168 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Search for related application",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247421",
+      "appName": "EMails",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417147"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236417147",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "email",
+          "stepFunction": "customPrep",
+          "eval": "explode(&#34;:&#34;, explode(&#34;,&#34;, [*item_value_email*])[0])[1]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495762",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_pfprepfield:email*]"
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*]!=null"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495735",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417145",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27254226*]"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*]==null &amp;&amp; [*item_value_application*] !=null"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "relatedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495735",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814716.xml",
+    "dateProcessed": "20221118 165609"
+  }
+}

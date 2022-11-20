@@ -1,0 +1,733 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create- update found record",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27918820",
+      "appName": "Data Set - Quality Assurance",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_uniqueid*]!=null"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27948911",
+            "field": "244486143",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_uniqueid*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27948911:title*] != null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27948911",
+          "values": {
+            "0": {
+              "fieldId": "244747220",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_staff-member*]"
+            },
+            "1": {
+              "fieldId": "244747227",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_staff-member*]"
+            },
+            "2": {
+              "fieldId": "244747221",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-address*]"
+            },
+            "3": {
+              "fieldId": "244747222",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-appdate*]"
+            },
+            "4": {
+              "fieldId": "244747223",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-email*]"
+            },
+            "5": {
+              "fieldId": "244747224",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-firstname*]"
+            },
+            "6": {
+              "fieldId": "244747225",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-lastname*]"
+            },
+            "7": {
+              "fieldId": "244747226",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_transferdata-appstatus*]"
+            },
+            "8": {
+              "fieldId": "244747236",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lproofoftenancy*]"
+            },
+            "9": {
+              "fieldId": "244747228",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_adupapps*]"
+            },
+            "10": {
+              "fieldId": "244747244",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_hmwereallhouseholdmembersincludedintheapplicationaccoun*]"
+            },
+            "11": {
+              "fieldId": "244747247",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_incisthefamilyverifiedasreceivingcategoricalincome*]"
+            },
+            "12": {
+              "fieldId": "244747245",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_incifnocategoricalincomeverifieddidapplicantprovideproo*]"
+            },
+            "13": {
+              "fieldId": "244747246",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_incwasapplicantconfirmedasincomeeligible*]"
+            },
+            "14": {
+              "fieldId": "244747254",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utldoesthisapplicanthaveanypreviouslypaidapplicationsfo*]"
+            },
+            "15": {
+              "fieldId": "244747262",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_qcdothedocumentsprovidedlooklegitimateandnotaltered*]"
+            },
+            "16": {
+              "fieldId": "244747261",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_qcqcinitialresult-2*]"
+            },
+            "17": {
+              "fieldId": "244747260",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_qcstatus*]"
+            },
+            "18": {
+              "fieldId": "245312986",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_qccomments*]"
+            },
+            "19": {
+              "fieldId": "245274990",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_staff-review-edit-link*]"
+            },
+            "20": {
+              "fieldId": "244747258",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpdowehaveproofofownership*]"
+            },
+            "21": {
+              "fieldId": "245312978",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_lpsupportingdocumentation-2*]"
+            },
+            "22": {
+              "fieldId": "244747255",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpwasproofofownershipconfirmedtomatchpropertyassessorsi*]"
+            },
+            "23": {
+              "fieldId": "244747256",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpifpayeedoesnotmatchverifiedoawnerwaspmaowneraffidavit*]"
+            },
+            "24": {
+              "fieldId": "245312979",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_lpsupportingdocumentation*]"
+            },
+            "25": {
+              "fieldId": "244747259",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpwerenomorethan18monthsofutilityarrearsawardedforthisa*]"
+            },
+            "26": {
+              "fieldId": "245312981",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpselectallthatareapplicablewhoisthepayee-2*]"
+            },
+            "27": {
+              "fieldId": "245312982",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_lpselectallthatareapplicablewhoisthepayee*]"
+            },
+            "28": {
+              "fieldId": "245312983",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpdidthelldeclinepayment*]"
+            },
+            "29": {
+              "fieldId": "245312984",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lpwasthellcontacted3timesandgivenatleast5businessdaysto*]"
+            },
+            "30": {
+              "fieldId": "245312985",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_lpcomments2*]"
+            },
+            "31": {
+              "fieldId": "244747252",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utldidutilityserviceaddressmatchapplicantsaddress*]"
+            },
+            "32": {
+              "fieldId": "244747251",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwereutilityarrearscappedat1000perutilityifthemonthly-2*]"
+            },
+            "33": {
+              "fieldId": "244747250",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwasnomorethan3monthsofutilitystipendsprovidedperutil-2*]"
+            },
+            "34": {
+              "fieldId": "244747249",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwasthecorrectutilitycompanyandvendoridentificationnu*]"
+            },
+            "35": {
+              "fieldId": "244747248",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwerenomorethan18monthsofutilityarrearsawardedforthis*]"
+            },
+            "36": {
+              "fieldId": "244747253",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_werenomorethan18monthsofutilityarrearsawardedforthisapp*]"
+            },
+            "37": {
+              "fieldId": "245312799",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlggasassistancerequested*]"
+            },
+            "38": {
+              "fieldId": "245312800",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_utlggasapprovedamount*]"
+            },
+            "39": {
+              "fieldId": "245312801",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlgwhowillreceivethispayment*]"
+            },
+            "40": {
+              "fieldId": "245312802",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlggascompanyaccount*]"
+            },
+            "41": {
+              "fieldId": "245312804",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlggascompanyname*]"
+            },
+            "42": {
+              "fieldId": "245312803",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlgsciesid*]"
+            },
+            "43": {
+              "fieldId": "245312805",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utleelectricassistancerequested*]"
+            },
+            "44": {
+              "fieldId": "245312806",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_utleelectricapprovedamount*]"
+            },
+            "45": {
+              "fieldId": "245312807",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlewhowillreceivethispayment*]"
+            },
+            "46": {
+              "fieldId": "245312810",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utleelectriccompanyaccount*]"
+            },
+            "47": {
+              "fieldId": "245312809",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utleelectriccompanyname*]"
+            },
+            "48": {
+              "fieldId": "245312808",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlesciesid*]"
+            },
+            "49": {
+              "fieldId": "245312921",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlssewerassistancerequested*]"
+            },
+            "50": {
+              "fieldId": "245312922",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_utlssewerapprovedamount*]"
+            },
+            "51": {
+              "fieldId": "245312924",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlswhowillreceivethispayment*]"
+            },
+            "52": {
+              "fieldId": "245312927",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlssewercompanyaccount*]"
+            },
+            "53": {
+              "fieldId": "245312926",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlssewergascompanyname*]"
+            },
+            "54": {
+              "fieldId": "245312925",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlssciesid*]"
+            },
+            "55": {
+              "fieldId": "245312923",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlttrashassistancerequested*]"
+            },
+            "56": {
+              "fieldId": "245312916",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_utlttrashapprovedamount*]"
+            },
+            "57": {
+              "fieldId": "245312917",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utltwhowillreceivethispayment*]"
+            },
+            "58": {
+              "fieldId": "245312920",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlttrashcompanyaccount*]"
+            },
+            "59": {
+              "fieldId": "245312919",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlttrashcompanyname*]"
+            },
+            "60": {
+              "fieldId": "245312918",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utltsciesid*]"
+            },
+            "61": {
+              "fieldId": "245312910",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwwaterassistancerequested*]"
+            },
+            "62": {
+              "fieldId": "245312911",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_utlwwaterapprovedamount*]"
+            },
+            "63": {
+              "fieldId": "245312912",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_utlwwhowillreceivethispayment*]"
+            },
+            "64": {
+              "fieldId": "245312915",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlwwatercompanyaccount*]"
+            },
+            "65": {
+              "fieldId": "245312914",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlwwatercompanyname*]"
+            },
+            "66": {
+              "fieldId": "245312913",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_utlwsciesid*]"
+            },
+            "67": {
+              "fieldId": "245312976",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_ofwhowillreceivetheotherfees*]"
+            },
+            "68": {
+              "fieldId": "245312977",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_ofotherfeesapprovedamount*]"
+            },
+            "69": {
+              "fieldId": "244747238",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_covidwasamountofarrearsverified*]"
+            },
+            "70": {
+              "fieldId": "245312796",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_rasupportingdocumentation*]"
+            },
+            "71": {
+              "fieldId": "244747241",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_covidwererentalarrearscappedatfairmarket*]"
+            },
+            "72": {
+              "fieldId": "244747240",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_covidwerenomorethan18monthsofrental*]"
+            },
+            "73": {
+              "fieldId": "244747239",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_rawerenomorethan18monthsofrentalassistanceprovidedonall*]"
+            },
+            "74": {
+              "fieldId": "244747243",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_covidwasthetotalamountofassistancecorrectlycalculated*]"
+            },
+            "75": {
+              "fieldId": "245312797",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_rawhowillreceivetherentalpayment*]"
+            },
+            "76": {
+              "fieldId": "245312798",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_rasceisid*]"
+            },
+            "77": {
+              "fieldId": "244747234",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_ainfoistheapplicationindocuphase*]"
+            },
+            "78": {
+              "fieldId": "244747233",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_ainfodidapplicantprovideproofofidentity*]"
+            },
+            "79": {
+              "fieldId": "245312795",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_ainfosupportingdocumentation*]"
+            },
+            "80": {
+              "fieldId": "244747232",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_ainfowereanypotentialduplicatesreviewedresolved*]"
+            },
+            "81": {
+              "fieldId": "244747236",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_lproofoftenancy*]"
+            },
+            "82": {
+              "fieldId": "245312794",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_lsupporting-documentation*]"
+            },
+            "83": {
+              "fieldId": "245322436",
+              "type": "app",
+              "function": "find",
+              "value": {
+                "related": "27247427",
+                "field": "236417250",
+                "searchcond": "eq",
+                "value": "[*item_value_staff-member*]"
+              }
+            },
+            "84": {
+              "fieldId": "245489677",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "85": {
+              "fieldId": "245363086",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_rentalarrearstotalnumberofmonth*]"
+            },
+            "86": {
+              "fieldId": "245363087",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_rentalarrearstotalamount*]"
+            },
+            "87": {
+              "fieldId": "245363085",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_prospectiverentstotalnumberofmonth*]"
+            },
+            "88": {
+              "fieldId": "245363088",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_prospectiverentstotalamount*]"
+            },
+            "89": {
+              "fieldId": "245363089",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_totalrentalassistance*]"
+            },
+            "90": {
+              "fieldId": "245363499",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_paid-to-tenant-months*]"
+            },
+            "91": {
+              "fieldId": "245363500",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_paid-to-tenant-approved-amount*]"
+            },
+            "92": {
+              "fieldId": "245363501",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_paidtoownerlandlordmonths*]"
+            },
+            "93": {
+              "fieldId": "245363502",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_paidtoownerlandlordapprovedamount*]"
+            },
+            "94": {
+              "fieldId": "244747237",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_applicationtype*]"
+            },
+            "95": {
+              "fieldId": "244747247",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_inchastheapplicantprovideddocumentationfromlocalstateor*]"
+            },
+            "96": {
+              "fieldId": "244747245",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_incifnotcategoricalincomeisverifieddoestheapplicantresi*]"
+            },
+            "97": {
+              "fieldId": "245365163",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_total-annual-income*]"
+            },
+            "98": {
+              "fieldId": "245365164",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_ami-test-results*]"
+            },
+            "99": {
+              "fieldId": "245514745",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_totalutilityamountsapprovedacrossallapplications*]"
+            },
+            "100": {
+              "fieldId": "245523974",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_total-utility-months-assisted-across-all-applications*]"
+            },
+            "101": {
+              "fieldId": "245369771",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_did-the-ll-decline-payment-supporting*]"
+            },
+            "102": {
+              "fieldId": "245369772",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_3-times-supporting*]"
+            },
+            "103": {
+              "fieldId": "245802289",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "104": {
+              "fieldId": "245837183",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_1st-fail-date*]"
+            },
+            "105": {
+              "fieldId": "245837182",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_pass-date*]"
+            },
+            "106": {
+              "fieldId": "245837181",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_pass-with-comments-date*]"
+            },
+            "107": {
+              "fieldId": "245837180",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_pass-application-denied-date*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-3121439.xml",
+    "dateProcessed": "20221118 165451"
+  }
+}

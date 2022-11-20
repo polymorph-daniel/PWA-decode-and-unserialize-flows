@@ -1,0 +1,147 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "\u03a9 Manual count the number of unique months - update",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "appID",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:true-nma-app-id*]"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "follow",
+            "app_2": "27254226",
+            "direction_2": "forward",
+            "field_2": "236495778",
+            "action_3": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonthsBoth",
+          "stepFunction": "customPrep",
+          "eval": "&#39;&#39;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "0"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonthsBoth",
+          "stepFunction": "customPrep",
+          "eval": "trim([*item_value_pfprepfield:uniqueMonthsBoth*].&#39;,&#39;.[*item_value_pfref:27254226:unique-months-paid*],&#39;,&#39;)"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:count*]+1"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonthsCount",
+          "stepFunction": "customPrep",
+          "eval": "sizeof(array_unique(explode(&#39;,&#39;,[*item_value_pfprepfield:uniqueMonthsBoth*])));\r\n"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "uniqueMonths",
+          "stepFunction": "customPrep",
+          "eval": "implode(&#39;,&#39;,array_unique(explode(&#39;,&#39;,[*item_value_pfprepfield:uniqueMonthsBoth*])))"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "dgarcia@nanmckay-sub.com",
+          "auth": "gf",
+          "message": "Applications: [*item_value_pfprepfield:count*]\r\nMonthsBoth: [*item_value_pfprepfield:uniqueMonthsBoth*]\r\nuniqueMonths: [*item_value_pfprepfield:uniqueMonths*]\r\nuniqueMonthsCount: [*item_value_pfprepfield:uniqueMonthsCount*]\r\n---"
+        }
+      }
+    },
+    "filename": "flow-2994332.xml",
+    "dateProcessed": "20221118 165453"
+  }
+}

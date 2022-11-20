@@ -1,0 +1,174 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update | Compliance | Subsidized Assistance auto-select for NMA QC review",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495742"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495742",
+          "operator": "eq",
+          "value": "Pending Payment Processing"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495930",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step3": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495932",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step4": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495933",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step5": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495931",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_did-the-applicant-receive-subsidized-assistance*]==&#34;Yes&#34;"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "([*item_value_rentpayee*]== &#34;Landlord/Owner&#34; || [*item_value_rentpayee*]== &#34;Tenant&#34;) &amp;&amp; ([*item_value_farrearsm*]==0 || [*item_value_fstipendsm*]==0)"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495932",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "1": {
+              "fieldId": "236495933",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "2": {
+              "fieldId": "242081786",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "subsidized assistance"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2918486.xml",
+    "dateProcessed": "20221118 165610"
+  }
+}

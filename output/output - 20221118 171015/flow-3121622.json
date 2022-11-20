@@ -1,0 +1,56 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - relate current reviewer",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27948911",
+      "appName": "State Quality Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_current-reviewer*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "245322436",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247427*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-3121622.xml",
+    "dateProcessed": "20221118 171018"
+  },
+  "_id": "3121622"
+}

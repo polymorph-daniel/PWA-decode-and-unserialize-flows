@@ -1,0 +1,324 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update Document Type Assignment",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27436341",
+      "appName": "Appeals",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "244855585"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "244855585",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Identity&#34;)"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Identity&#34;"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Payment&#34;)"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Payment&#34;"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Tenancy&#34;)"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Tenancy&#34;"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Ownership&#34;)"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Ownership&#34;"
+            }
+          }
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Utility Costs&#34;)"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Utility Costs&#34;"
+            }
+          }
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Other Fees&#34;)"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Other Fees&#34;"
+            }
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Proof of Income&#34;)"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Proof of Income&#34;"
+            }
+          }
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_documenttypetext*],&#34;Other&#34;)"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238547880",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_document-type*].&#34;,Other&#34;"
+            }
+          }
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "244855585",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-3104928.xml",
+    "dateProcessed": "20221118 165605"
+  }
+}

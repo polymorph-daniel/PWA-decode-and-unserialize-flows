@@ -1,0 +1,287 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update- Search for Approved Owners",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247424",
+      "appName": "Owners",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247432",
+            "field": "236417745",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_tax-identification-number*]"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247432:tax-identification-number*] == [*item_value_tax-identification-number*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417179",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "This is a Duplicate/Secondary W9. Approved W9 is [*item_value_pfref:27247432:item_url_link*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247432:tax-identification-number*] != [*item_value_tax-identification-number*]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247432",
+          "values": {
+            "0": {
+              "fieldId": "236417742",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_w9-code*]"
+            },
+            "1": {
+              "fieldId": "236417745",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_tax-identification-number*]"
+            },
+            "2": {
+              "fieldId": "236417746",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247432:scid*]"
+            },
+            "3": {
+              "fieldId": "236417747",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_first-name*]"
+            },
+            "4": {
+              "fieldId": "236417748",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_last-name*]"
+            },
+            "5": {
+              "fieldId": "236417749",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_business-name*]"
+            },
+            "6": {
+              "fieldId": "236417750",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_federal-tax-classification*]"
+            },
+            "7": {
+              "fieldId": "236417751",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_llc-tax-classification*]"
+            },
+            "8": {
+              "fieldId": "236417752",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_address*]"
+            },
+            "9": {
+              "fieldId": "236417753",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_city*]"
+            },
+            "10": {
+              "fieldId": "236417754",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_state*]"
+            },
+            "11": {
+              "fieldId": "236417755",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_zip-code*]"
+            },
+            "12": {
+              "fieldId": "236417756",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_full-name-signature*]"
+            },
+            "13": {
+              "fieldId": "236417757",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_auth-method-2*]"
+            },
+            "14": {
+              "fieldId": "236417758",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_auth-phone*]"
+            },
+            "15": {
+              "fieldId": "236417759",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_auth-email*]"
+            },
+            "16": {
+              "fieldId": "236417760",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_auth-validation-code*]"
+            },
+            "17": {
+              "fieldId": "236417761",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_giact-verification-response-2*]"
+            },
+            "18": {
+              "fieldId": "236417762",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_giact-verification-code*]"
+            },
+            "19": {
+              "fieldId": "236417763",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_confirmation-number*]"
+            },
+            "20": {
+              "fieldId": "236417764",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_ip-address*]"
+            },
+            "21": {
+              "fieldId": "236417765",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_application-number*]"
+            },
+            "22": {
+              "fieldId": "236417776",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247432:related-applications*]"
+            },
+            "23": {
+              "fieldId": "236417777",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417210",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfnew:27247432*]"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2814676"
+          }
+        }
+      }
+    },
+    "filename": "flow-2814676.xml",
+    "dateProcessed": "20221118 165456"
+  }
+}

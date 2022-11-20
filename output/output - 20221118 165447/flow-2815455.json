@@ -1,0 +1,235 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Locked - Update Log Times",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247434",
+      "appName": "Batch Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417820"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236417820",
+          "operator": "eq",
+          "value": "Locked"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_current_revision_by*]==&#34;Batch Control&#34; || [*item_value_current_revision_by*]==&#34;Candace Spellman&#34; || [*item_value_current_revision_by*]==&#34;Nathan Paufve&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Payment Status Update: starting to lock pre-payment items"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247434",
+          "values": {
+            "0": {
+              "fieldId": "236417820",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "date",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;Ymd&#34;, strtotime( [*item_value_current_date*]  ) )"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "dateplus2",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;Ymd&#34;, strtotime( [*item_value_current_date*] . &#34; +2 weekdays&#34; ) )"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "time",
+          "stepFunction": "customPrep",
+          "eval": "date (&#34;his&#34;, strtotime( [*item_value_current_date_time*]) )"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247434",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417871",
+            "action_2": "follow",
+            "app_2": "27254226",
+            "direction_2": "forward",
+            "field_2": "236417879",
+            "action_3": "done"
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateRelated",
+        "stepDetails": {
+          "stepFunction": "updateRelated",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "relatedAppId": "27247437",
+          "values": {
+            "0": {
+              "fieldId": "236417874",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            },
+            "1": {
+              "fieldId": "236417892",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:date*]"
+            },
+            "2": {
+              "fieldId": "236417893",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:dateplus2*]"
+            },
+            "3": {
+              "fieldId": "236417885",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:time*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "21"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:GlobiFlow-Most-Recent-Error*] != &#34;&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "error: [*item_value_pfprepfield:GlobiFlow-Most-Recent-Error*]"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Payment Status Update: All pre-payment items are locked"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815455.xml",
+    "dateProcessed": "20221118 165455"
+  }
+}

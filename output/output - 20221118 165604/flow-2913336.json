@@ -1,0 +1,50 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Reason for Escalation >> Update Date",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27509444",
+      "appName": "Possible Misrepresentation of Information",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "239377369"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "239377371",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2913336.xml",
+    "dateProcessed": "20221118 165607"
+  }
+}

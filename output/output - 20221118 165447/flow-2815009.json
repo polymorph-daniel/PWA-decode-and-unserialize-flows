@@ -1,0 +1,117 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - Generate Line 13 ID",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_line-13*] == null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "FName",
+          "stepFunction": "customPrep",
+          "eval": "explode(&#34; &#34;,[*item_value_pfref:27254226:ahoh-name*])[0]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "LName",
+          "stepFunction": "customPrep",
+          "eval": "explode(&#34; &#34;,[*item_value_pfref:27254226:ahoh-name*])[3]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "NumberSeq",
+          "stepFunction": "customPrep",
+          "eval": "rand(1000000000, 9999999999)"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "ID",
+          "stepFunction": "customPrep",
+          "eval": "substr([*item_value_pfprepfield:LName*].[*item_value_pfprepfield:FName*].[*item_value_pfprepfield:NumberSeq*], 0, 14)"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417894",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:ID*]"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815009.xml",
+    "dateProcessed": "20221118 165455"
+  }
+}

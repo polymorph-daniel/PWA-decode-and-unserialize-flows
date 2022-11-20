@@ -1,0 +1,126 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - HOLD REMOVED",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417878"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236417878",
+          "operator": "eq",
+          "value": "[*not_set*]"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27247434",
+            "direction_1": "forward",
+            "field_1": "236417871",
+            "action_2": "done"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247434:status*] == &#34;Approved&#34; || [*item_value_pfref:27247434:status*] == &#34;Payment Sent&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "HOLD REMOVED ON A PAID BATCH. MOVING RECORD TO AN OPEN BATCH."
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247434",
+            "view": "52878786",
+            "auth": "app",
+            "limit": ""
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417871",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247434*]"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815014.xml",
+    "dateProcessed": "20221118 171023"
+  },
+  "_id": "2815014"
+}

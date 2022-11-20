@@ -1,0 +1,119 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - search DS Staff Review",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247430",
+            "field": "236417534",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_true-nma-app-id*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "false"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "sortCollected",
+        "stepDetails": {
+          "stepFunction": "sortCollected",
+          "relapp": "27247430",
+          "orderfield": "236417705",
+          "orderdir": "DESC"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247430*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:found*] != true"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495782",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247430*]"
+            },
+            "1": {
+              "fieldId": "236495840",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247430:staff-edit-link*]"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "true"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      }
+    },
+    "filename": "flow-2815457.xml",
+    "dateProcessed": "20221118 165611"
+  }
+}

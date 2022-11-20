@@ -1,0 +1,172 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - tenant payment AddressValidation",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_paymententitytype*] ==&#34;Tenant&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27247528",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://personator.melissadata.net/v3/WEB/ContactVerify/doContactVerify&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "melissa",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "GET",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "format=json&amp;id=bvKSktWzGhScKExH-67sRq**nSAcwXpxhQ0PC2lXxuDAZ-**&amp;act=Check&amp;t=&#34;RH&#34;&amp;a1=[*item_value_pfref:27247528:aaddressline1*]&amp;a2=[*item_value_pfref:27247528:aaddressline2*]&amp;postal=[*item_value_pfref:27247528:aaddresszip*]&amp;city=[*item_value_pfref:27247528:aaddresscity*]&amp;state=[*item_value_pfref:27247528:aaddressstate*]",
+            "post": "",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "return",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:melissa*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "md1",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;AddressLine1&#34;]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "md2",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;AddressLine2&#34;]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdcity",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;City&#34;]"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdstate",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;State&#34;]"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdzip",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;PostalCode&#34;]"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417918",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:md1*] [*item_value_pfprepfield:md2*]"
+            },
+            "1": {
+              "fieldId": "236417919",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdcity*]"
+            },
+            "2": {
+              "fieldId": "236417920",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdstate*]"
+            },
+            "3": {
+              "fieldId": "236417921",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdzip*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815035.xml",
+    "dateProcessed": "20221118 165454"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "y",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27948911",
+      "appName": "State Quality Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27918820",
+            "field": "244989086",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_title*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://hook.us1.make.com/gp3iydibwq3ahy6ky6hw57pjd74iohg9&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "json",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n\r\n&#39;entry&#39; =&gt; [*item_value_pfref:27918820:title*],\r\n&#39;UniqueID&#39; =&gt; [*item_value_title*],\r\n\r\n))"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "flow",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:json*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      }
+    },
+    "filename": "flow-3137764.xml",
+    "dateProcessed": "20221118 165451"
+  }
+}

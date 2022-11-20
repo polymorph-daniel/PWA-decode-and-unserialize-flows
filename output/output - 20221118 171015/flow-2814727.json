@@ -1,0 +1,75 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual- find AppId based on subject",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247435",
+      "appName": "Email Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "length_location",
+          "stepFunction": "customPrep",
+          "eval": "strrpos( [*item_value_from*],&#39;SCE&#39;,0)"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:length_location*]!= false || [*item_value_pfprepfield:length_location*]!=null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "return_id",
+          "stepFunction": "customPrep",
+          "eval": "substr([*item_value_from*],[*item_value_pfprepfield:length_location*],8)"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417834",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:return_id*]"
+            }
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814727.xml",
+    "dateProcessed": "20221118 171023"
+  },
+  "_id": "2814727"
+}

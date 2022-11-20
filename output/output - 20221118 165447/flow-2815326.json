@@ -1,0 +1,498 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Copy of Create - Create Application",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247551",
+      "appName": "Data Set - Recertification",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495721",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_recertappid*]"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*] == null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "clearCollected",
+        "stepDetails": {
+          "stepFunction": "clearCollected",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495721",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aapnmaappid*]"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "DOB",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;Y-m-d&#34;, strtotime([*item_value_aapdob*]));"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495721",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_recertappid*]"
+            },
+            "1": {
+              "fieldId": "236495740",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "2": {
+              "fieldId": "236495741",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            },
+            "3": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            },
+            "4": {
+              "fieldId": "236495743",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_pfref:27254226:aoriginal-app-date*]"
+            },
+            "5": {
+              "fieldId": "236495745",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapfullname*]"
+            },
+            "6": {
+              "fieldId": "236495746",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:alanguage*]"
+            },
+            "7": {
+              "fieldId": "236495747",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aalternate-id*]"
+            },
+            "8": {
+              "fieldId": "236495748",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:assn*]"
+            },
+            "9": {
+              "fieldId": "236495749",
+              "type": "date",
+              "function": "calc",
+              "value": "[*item_value_pfprepfield:DOB*]"
+            },
+            "10": {
+              "fieldId": "236495750",
+              "type": "location",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddress*]"
+            },
+            "11": {
+              "fieldId": "236495751",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddress-line-2*]"
+            },
+            "12": {
+              "fieldId": "236495752",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:acounty-msa*]"
+            },
+            "13": {
+              "fieldId": "236495756",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aunitmak*]"
+            },
+            "14": {
+              "fieldId": "236495757",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aunitbasemak*]"
+            },
+            "15": {
+              "fieldId": "236495758",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aethnicity*]"
+            },
+            "16": {
+              "fieldId": "236495759",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:arace*]"
+            },
+            "17": {
+              "fieldId": "236495760",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:agender*]"
+            },
+            "18": {
+              "fieldId": "236495761",
+              "type": "phone",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aphone*]"
+            },
+            "19": {
+              "fieldId": "236495762",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aemail*]"
+            },
+            "20": {
+              "fieldId": "236495763",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "21": {
+              "fieldId": "236495764",
+              "type": "number",
+              "function": "value",
+              "value": "[*item_value_aaptotalmembers*]"
+            },
+            "22": {
+              "fieldId": "236495765",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_aapannualgrossincome*]"
+            },
+            "23": {
+              "fieldId": "236495766",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_aleasemonthlycontractrent*]"
+            },
+            "24": {
+              "fieldId": "236495767",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:a-owner-name*]"
+            },
+            "25": {
+              "fieldId": "236495768",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aowner-address*]"
+            },
+            "26": {
+              "fieldId": "236495769",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aowner-mak*]"
+            },
+            "27": {
+              "fieldId": "236495770",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aowner-base-mak*]"
+            },
+            "28": {
+              "fieldId": "236495771",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aowner-phone*]"
+            },
+            "29": {
+              "fieldId": "236495772",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aowner-email*]"
+            },
+            "30": {
+              "fieldId": "236495773",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aappercentofami*]"
+            },
+            "31": {
+              "fieldId": "236495775",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            },
+            "32": {
+              "fieldId": "236495778",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27254226*]"
+            },
+            "33": {
+              "fieldId": "236495779",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "34": {
+              "fieldId": "236495780",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            },
+            "35": {
+              "fieldId": "236495872",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddressline1*]"
+            },
+            "36": {
+              "fieldId": "236495873",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddressline2*]"
+            },
+            "37": {
+              "fieldId": "236495874",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddresscity*]"
+            },
+            "38": {
+              "fieldId": "236495875",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddressstate*]"
+            },
+            "39": {
+              "fieldId": "236495876",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:aaddresszip*]"
+            },
+            "40": {
+              "fieldId": "236495877",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:amdcounty*]"
+            },
+            "41": {
+              "fieldId": "236495879",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:afirstname*]"
+            },
+            "42": {
+              "fieldId": "236495880",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27254226:alastname*]"
+            },
+            "43": {
+              "fieldId": "236495961",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_gascompany*]"
+            },
+            "44": {
+              "fieldId": "236495962",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_gasaccountnumber*]"
+            },
+            "45": {
+              "fieldId": "236495963",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_gasothername*]"
+            },
+            "46": {
+              "fieldId": "236495964",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_gastotalowed*]"
+            },
+            "47": {
+              "fieldId": "236495965",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_electriccompany*]"
+            },
+            "48": {
+              "fieldId": "236495966",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_electricaccountnumber*]"
+            },
+            "49": {
+              "fieldId": "236495967",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_electricothername*]"
+            },
+            "50": {
+              "fieldId": "236495968",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_electrictotalowed*]"
+            },
+            "51": {
+              "fieldId": "236495969",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_watercompany*]"
+            },
+            "52": {
+              "fieldId": "236495970",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_wateraccountnumber*]"
+            },
+            "53": {
+              "fieldId": "236495971",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_watertotalowed*]"
+            },
+            "54": {
+              "fieldId": "236495972",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_sewercompany*]"
+            },
+            "55": {
+              "fieldId": "236495973",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_seweraccountnumber*]"
+            },
+            "56": {
+              "fieldId": "236495974",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_sewertotalowed*]"
+            },
+            "57": {
+              "fieldId": "236495975",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_trashcompany*]"
+            },
+            "58": {
+              "fieldId": "236495976",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_trashaccountnumber*]"
+            },
+            "59": {
+              "fieldId": "236495977",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_trashtotalowed*]"
+            },
+            "60": {
+              "fieldId": "236495978",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_totalutilitiesowed*]"
+            },
+            "61": {
+              "fieldId": "236495867",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapipaddress*]"
+            },
+            "62": {
+              "fieldId": "236495870",
+              "type": "app",
+              "function": "find",
+              "value": {
+                "related": "27247429",
+                "field": "236417296",
+                "searchcond": "eq",
+                "value": "[*item_value_aapnmaappid*]"
+              }
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495780",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815326.xml",
+    "dateProcessed": "20221118 165451"
+  }
+}

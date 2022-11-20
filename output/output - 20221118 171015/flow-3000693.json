@@ -1,0 +1,110 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "\u03a9 Manual repair ERA1/2 - search",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247437",
+            "field": "236417870",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "PPL105526"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "0"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247437*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "count",
+          "stepFunction": "customPrep",
+          "eval": "1+[*item_value_pfprepfield:count*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "dgarcia@nanmckay-sub.com",
+          "auth": "gf",
+          "message": "[*item_value_pfprepfield:count*]: [[*item_value_pfref:27247437:logid*]]([*item_value_pfref:27247437:item_url_link*])\r\n---"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "triggerCollected",
+        "stepDetails": {
+          "stepFunction": "triggerCollected",
+          "appId": "27247437",
+          "flow": "2994108"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "dgarcia@nanmckay-sub.com",
+          "auth": "gf",
+          "message": "Complete!"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "createMessage",
+        "stepDetails": {
+          "stepFunction": "createMessage",
+          "user": "npaufve@nanmckay.com",
+          "auth": "gf",
+          "message": "Complete!"
+        }
+      }
+    },
+    "filename": "flow-3000693.xml",
+    "dateProcessed": "20221118 171021"
+  },
+  "_id": "3000693"
+}

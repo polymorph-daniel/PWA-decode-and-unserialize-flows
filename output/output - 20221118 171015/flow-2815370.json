@@ -1,0 +1,53 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create | Eviction Received",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236495950",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "8"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2815370.xml",
+    "dateProcessed": "20221118 171031"
+  },
+  "_id": "2815370"
+}

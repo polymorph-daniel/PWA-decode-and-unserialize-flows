@@ -1,0 +1,71 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Trigger Address Validation - Tech",
+      "version": "2",
+      "description": "Uses Tech - MD Unit to trigger",
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "245021418"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "245021418",
+          "operator": "eq",
+          "value": "MD Unit"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "3111116"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "245021418",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-3111123.xml",
+    "dateProcessed": "20221118 171027"
+  },
+  "_id": "3111123"
+}

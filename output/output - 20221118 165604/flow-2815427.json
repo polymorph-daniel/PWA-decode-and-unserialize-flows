@@ -1,0 +1,309 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - Create Payment Log Gas Owner/Utility",
+      "version": "2",
+      "description": "Updated with new coding 6/30",
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_fgaspayee*] != &#34;Tenant&#34; &amp;&amp; [*item_value_fgastotalowed*] != 0"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236495778",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247434",
+            "view": "52878786",
+            "auth": "app",
+            "limit": ""
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "entity",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_fgaspayee*] == &#34;Landlord/Owner&#34; ? &#34;Owner&#34; : &#34;Utility Company&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "line13",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:entity*] == &#34;Owner&#34; ? [*item_value_true-nma-app-id*] : [*item_value_fgasaccount*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "line16",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:entity*] == &#34;Owner&#34; ? [*item_value_scid*] : [*item_value_fgasscid*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "control",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247434:pre-payment-count*]+1"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27247434",
+          "values": {
+            "0": {
+              "fieldId": "236417823",
+              "type": "number",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:control*]"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247437",
+          "values": {
+            "0": {
+              "fieldId": "236417871",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247434*]"
+            },
+            "1": {
+              "fieldId": "236417872",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_pfprepfield:entity*]"
+            },
+            "2": {
+              "fieldId": "236417873",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "3": {
+              "fieldId": "236417874",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "4": {
+              "fieldId": "236417875",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            },
+            "5": {
+              "fieldId": "236417879",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "6": {
+              "fieldId": "236417880",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_rownerw9*]"
+            },
+            "7": {
+              "fieldId": "236417882",
+              "type": "text",
+              "function": "value",
+              "value": "L320"
+            },
+            "8": {
+              "fieldId": "236417883",
+              "type": "text",
+              "function": "value",
+              "value": "ER"
+            },
+            "9": {
+              "fieldId": "236417886",
+              "type": "text",
+              "function": "value",
+              "value": "AP01"
+            },
+            "10": {
+              "fieldId": "236417887",
+              "type": "text",
+              "function": "value",
+              "value": "1"
+            },
+            "11": {
+              "fieldId": "236417889",
+              "type": "text",
+              "function": "value",
+              "value": "1"
+            },
+            "12": {
+              "fieldId": "236417890",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfref:27247434:pre-payment-count*]"
+            },
+            "13": {
+              "fieldId": "236417891",
+              "type": "text",
+              "function": "value",
+              "value": "KI"
+            },
+            "14": {
+              "fieldId": "236417895",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_true-nma-app-id*]"
+            },
+            "15": {
+              "fieldId": "236417896",
+              "type": "text",
+              "function": "value",
+              "value": "001"
+            },
+            "16": {
+              "fieldId": "236417897",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:line16*]"
+            },
+            "17": {
+              "fieldId": "236417898",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_fgastotalowed*]"
+            },
+            "18": {
+              "fieldId": "236417900",
+              "type": "text",
+              "function": "value",
+              "value": "ZSPE"
+            },
+            "19": {
+              "fieldId": "236417902",
+              "type": "text",
+              "function": "value",
+              "value": "5112510000"
+            },
+            "20": {
+              "fieldId": "236417903",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_fgastotalowed*]"
+            },
+            "21": {
+              "fieldId": "236417904",
+              "type": "text",
+              "function": "value",
+              "value": "D"
+            },
+            "22": {
+              "fieldId": "236417905",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $appID = substr([*item_value_true-nma-app-id*], 0, 5);\r\n  $ERA1 = &#34;L320PR0010&#34;;\r\n  $ERA2 = &#34;L320PS0010&#34;;\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_unique-months-paid*];\r\n  $uniqueMonthsRef = [*item_value_pfref:27254226:unique-months-paid*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths.&#39;,&#39;.$uniqueMonthsRef));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "23": {
+              "fieldId": "236417906",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $appID = substr([*item_value_true-nma-app-id*], 0, 5);\r\n  $ERA1 = &#34;L320_0070&#34;;\r\n  $ERA2 = &#34;L320_0071&#34;;\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_unique-months-paid*];\r\n  $uniqueMonthsRef = [*item_value_pfref:27254226:unique-months-paid*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths.&#39;,&#39;.$uniqueMonthsRef));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "24": {
+              "fieldId": "236417907",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $appID = substr([*item_value_true-nma-app-id*], 0, 5);\r\n  $ERA1 = &#34;51C60000&#34;;\r\n  $ERA2 = &#34;51C70011&#34;;\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_unique-months-paid*];\r\n  $uniqueMonthsRef = [*item_value_pfref:27254226:unique-months-paid*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths.&#39;,&#39;.$uniqueMonthsRef));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "25": {
+              "fieldId": "236417908",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $appID = substr([*item_value_true-nma-app-id*], 0, 5);\r\n  $ERA1 = &#34;L3201CRACT21&#34;;\r\n  $ERA2 = &#34;L3201ARPRA21&#34;;\r\n  $coding = &#39;&#39;;\r\n  $uniqueMonths = [*item_value_unique-months-paid*];\r\n  $uniqueMonthsRef = [*item_value_pfref:27254226:unique-months-paid*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths.&#39;,&#39;.$uniqueMonthsRef));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  if((strpos($appID, &#34;SCERC&#34;) !== false) ||\r\n     (strpos($appID, &#34;SCSRC&#34;) !== false)){\r\n    if($uniqueCount &lt; 15){\r\n      $coding = $ERA1;\r\n    }else{\r\n      $coding = $ERA2;\r\n    }\r\n  } else{\r\n    $coding = $ERA1;\r\n  }\r\n\r\n  return $coding;\r\n}"
+            },
+            "26": {
+              "fieldId": "236417911",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_true-nma-app-id*]"
+            },
+            "27": {
+              "fieldId": "236417912",
+              "type": "text",
+              "function": "value",
+              "value": "I0"
+            },
+            "28": {
+              "fieldId": "242554292",
+              "type": "number",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $uniqueMonths = [*item_value_unique-months-paid*];\r\n  $uniqueMonthsRef = [*item_value_pfref:27254226:unique-months-paid*];\r\n  $uniqueMonthsArray = array_unique(explode(&#39;,&#39;,$uniqueMonths.&#39;,&#39;.$uniqueMonthsRef));\r\n  $uniqueCount = sizeof($uniqueMonthsArray);\r\n\r\n  return $uniqueCount;\r\n}"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815427.xml",
+    "dateProcessed": "20221118 165612"
+  }
+}

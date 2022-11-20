@@ -1,0 +1,104 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Date | Close Out Procedure | 45 Day Check",
+      "version": "2",
+      "description": null,
+      "triggerType": "F",
+      "triggerHour": "13",
+      "lastCron": "2022-11-17 05",
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldDateMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldDateMatch",
+          "field": "236495786",
+          "operator": "eq",
+          "value": "[*current_date*][*-45*]"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "([*item_value_overall-status*] == &#34;Open&#34;) &amp;&amp;\r\n([*item_value_sub-status*] != &#34;Denied&#34;) &amp;&amp;\r\n([*item_value_rapplication-status*] == &#34;Close Out&#34;)"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_document*] == null &amp;&amp; [*item_value_email-flag*] == null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "# Application Closed Out\r\nThis application has been automatically Closed due to 45 days of inactivity while in the *&#34;Close Out&#34;* status."
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "28"
+            },
+            "1": {
+              "fieldId": "236495740",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            },
+            "2": {
+              "fieldId": "236495741",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2851045.xml",
+    "dateProcessed": "20221118 165611"
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Send to Escalations-Tier 2",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27805566",
+      "appName": "Call Center Tickets",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "246050076"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "246050076",
+          "operator": "eq",
+          "value": "Yes"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "revisionname",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_current_revision_by*]"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_current_revision_by*]"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "autho",
+          "stepFunction": "customPrep",
+          "eval": "stristr([*item_value_pfref:27247427:title*],&#34;Lead&#34;)"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:autho*] ==  &#34;FALSE&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "getPrevious",
+        "stepDetails": {
+          "stepFunction": "getPrevious"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "246050076",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Only Lead role can Send to Escalations-Tier 2"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:autho*] ==  &#34;TRUE&#34;"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247440",
+          "values": {
+            "0": {
+              "fieldId": "236418035",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_participantname*]"
+            },
+            "1": {
+              "fieldId": "236418042",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_details*]"
+            },
+            "2": {
+              "fieldId": "244719458",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "3": {
+              "fieldId": "236418033",
+              "type": "contact",
+              "function": "calc",
+              "value": "[*item_value_pfprepfield:revisionname*]"
+            },
+            "4": {
+              "fieldId": "236418032",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_relationship*]"
+            },
+            "5": {
+              "fieldId": "236418034",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "6": {
+              "fieldId": "236418035",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_participantname*]"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "244714945",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfnew:27247440*]"
+            }
+          }
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-3147775.xml",
+    "dateProcessed": "20221118 171026"
+  },
+  "_id": "3147775"
+}

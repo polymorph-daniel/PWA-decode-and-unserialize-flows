@@ -1,0 +1,255 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "1.1 Search for related application",
+      "version": "2",
+      "description": "Activated - Per Sammy \r\nNot sure why we deactivated.",
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247421",
+      "appName": "EMails",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "email",
+          "stepFunction": "customPrep",
+          "eval": "explode(&#34;:&#34;, explode(&#34;,&#34;, [*item_value_email*])[0])[1]"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_email*] != null &amp;&amp;  [*item_value_match*] == null &amp;&amp;  [*item_value_pfprepfield:email*] != &#34;scstayplus@schousing.com&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:email*] != &#34;no-reply@globimail.com&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495762",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_pfprepfield:email*]"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:name-nma-app-id*] != null"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417145",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27254226*]"
+            },
+            "1": {
+              "fieldId": "238302235",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:email*] == null"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238302235",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_email*] != [*item_value_pfref:27254226:podio_item_id*]"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_pfprepfield:email*], &#34;schousing&#34;) || [*item_value_pfprepfield:email*] != &#34;scstayplus@schousing.com&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417144",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            }
+          }
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "stristr([*item_value_pfprepfield:email*], &#34;schousing&#34;) == false"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": 0,
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417144",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_files_list*] == &#34;&#34;"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "No attachments detected with message"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814718.xml",
+    "dateProcessed": "20221118 171027"
+  },
+  "_id": "2814718"
+}

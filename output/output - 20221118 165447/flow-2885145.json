@@ -1,0 +1,48 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - Update importlogid field",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "238490153",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_logid*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2885145.xml",
+    "dateProcessed": "20221118 165454"
+  }
+}

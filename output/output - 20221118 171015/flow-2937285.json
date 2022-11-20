@@ -1,0 +1,344 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update | Compliance | NMA QC Status Update | Permissions Check",
+      "version": "2",
+      "description": "Update for ERAP00862",
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495933"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getPrevious",
+        "stepDetails": {
+          "stepFunction": "getPrevious"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "C",
+            "ignoreself": 0,
+            "value": "[*item_value_current_revision_by*]"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if someone is found by name match on the Project Staff app\r\n[*item_value_pfref:27247427:podio_item_id*] != &#34;&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if the person found does have permisisons, proceed\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Quality Control Specialist&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Supervisor&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Manager&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Project Manager&#34;) &gt; -1)"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "([*item_value_current_revision_by*] != &#34;AVA&#34;) &amp;&amp;\r\n(([*item_value_nma-qc-state-review-status*] == &#34;Pass&#34;) ||\r\n([*item_value_nma-qc-state-review-status*] == &#34;Fail&#34;))"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495936",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            },
+            "1": {
+              "fieldId": "236495937",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_current_revision_by*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_nma-qc-state-review-status*] == &#34;Fail&#34;"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "14"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "[*item_value_current_revision_by*] failed NMA QC"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247437",
+            "direction_1": "reverse",
+            "field_1": "236417879",
+            "action_2": "done"
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_nma-qc-state-review-status*] == &#34;Pass&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247437*]"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247437:payment-hold*] != &#34;&#34;"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "triggerCollected",
+        "stepDetails": {
+          "stepFunction": "triggerCollected",
+          "appId": "27247437",
+          "flow": "3085912"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "Notice\r\n---\r\n[*item_value_current_revision_by*] Passed NMA compliance check."
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27247437",
+          "auth": "app",
+          "message": "NMA QC Review: [*item_value_nma-qc-state-review-status*]"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// if the person found does not have permissions, revert.\r\n!((stripos([*item_value_pfref:27247427:title*], &#34;Quality Control Specialist&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Supervisor&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Manager&#34;) &gt; -1) ||\r\n(stripos([*item_value_pfref:27247427:title*], &#34;Project Manager&#34;) &gt; -1))"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "# Permissions Error\r\n[*item_value_current_revision_by*] does not have permissions to change this value"
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495933",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_pfprev:nma-qc-state-review-status*]"
+            }
+          }
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "// No match found in the Project Staff App\r\n[*item_value_pfref:27247427:podio_item_id*] == &#34;&#34;"
+        }
+      },
+      "step29": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "# Permissions Error\r\n[*item_value_current_revision_by*] did not make a match in the Project Staff app. Please make sure the name spelling matches records in the Project Staff."
+        }
+      },
+      "step30": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495933",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_pfprev:nma-qc-state-review-status*]"
+            }
+          }
+        }
+      },
+      "step31": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2937285.xml",
+    "dateProcessed": "20221118 171028"
+  },
+  "_id": "2937285"
+}

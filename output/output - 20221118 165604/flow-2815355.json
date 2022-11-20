@@ -1,0 +1,243 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - Send App Confirmation Email - Tenant",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] != &#34;No&#34;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aemail*] != null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "language",
+          "stepFunction": "customPrep",
+          "eval": "!stristr([*item_value_true-nma-app-id*],&#34;SCS&#34;) ? &#34;English&#34; : &#34;Spanish&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "emailAddresses",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#34;/(other|work|home):/ism&#34;, &#34;&#34;,[*item_value_aemail*] )"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:language*] == &#34;English&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_pfprepfield:emailAddresses*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "mail",
+          "replyAddress": "scstayplus@schousing.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "[*item_value_true-nma-app-id*]: You have received an important message from SC Stay Plus",
+          "message": "<p><span style=&#34;font-size: 8pt; color: #ffffff;&#34;>You have received an important message from SC Stay Plus</span></p>\r\n<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>Dear [*item_value_ahoh-name*]<strong>:</strong></p>\r\n<p>This email is to notify you that our team has received your application for emergency rental assistance. Your confirmation number along with the associated parties are listed below.</p>\r\n<ul>\r\n<li>Confirmation Number: [*item_value_true-nma-app-id*]</li>\r\n<li>Tenant Name: [*item_value_ahoh-name*]</li>\r\n<li>Owner Name: [*item_value_a-owner-name*]</li>\r\n<li>Unit Address: [*item_value_aaddress*]</li>\r\n</ul>\r\n<p>As a reminder, all applications for SC Stay Plus will be processed as they are received.</p>\r\n<p><span style=&#34;text-decoration: underline;&#34;><span style=&#34;color: #ff0000;&#34;><strong>WARNING: This application is not complete until all required documents are submitted.</strong></span></span></p>\r\n<p>It is important that you submit all required documents as soon as <strong>possible</strong> to avoid any delays in processing your application. To upload required documents, click <a href=&#34;https://southcarolina.onlinepha.com/en-US/Upload/&#34;><strong>HERE</strong></a>.</p>\r\n<p>A list of the accepted documents along with important program information is available on the SC Stay Plus application portal: <a href=&#34;https://southcarolina.onlinepha.com/en-US/Home/Index&#34;>https://southcarolina.onlinepha.com/en-US/Home/Index</a></p>\r\n<p><em>Have Additional Questions?</em> View Our Frequently Asked Questions <a href=&#34;https://southcarolina.onlinepha.com/en-US/Pages/View/124/faqs&#34;>[<strong>HERE</strong><strong>]</strong> </a>or call our Customer Care team at (803) 336-3420, Monday-Friday from 8am-5pm ET. You may also reach us by replying to this email.</p>\r\n<p><span style=&#34;color: black; background: white;&#34;>Please complete the survey link <a href=&#34;https://survey.guidehouse.com/jfe/form/SV_ex7obeyZiTxj85o&#34;>HERE</a> regarding your application experience. Your participation is greatly appreciated.</span></p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:language*] == &#34;Spanish&#34;"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "sendEmail",
+        "stepDetails": {
+          "stepFunction": "sendEmail",
+          "usePodioMail": "1",
+          "attachFiles": "0",
+          "filePattern": "*.*",
+          "to": "[*item_value_pfprepfield:emailAddresses*]",
+          "fromName": "SC Stay Plus",
+          "withReplies": "mail",
+          "replyAddress": "scstayplus@schousing.com",
+          "ccAddress": "",
+          "bccAddress": "outbound-email-log.48851ace@erap.south-carolina-erap.podio.com",
+          "subject": "[*item_value_true-nma-app-id*]: Ha recibido un mensaje importante de SC Stay Plus",
+          "message": "<p><img src=&#34;https://southcarolina.onlinepha.com/Content/images/site/site-logo-white.png&#34; alt=&#34;&#34; /></p>\r\n<p>Estimado [*item_value_ahoh-name*]:</p>\r\n<p>Este correo electr&oacute;nico es para notificarle que nuestro equipo ha recibido su solicitud de Asistencia de Alquiler de Emergencia. Su n&uacute;mero de confirmaci&oacute;n junto con las partes asociadas se enumeran a continuaci&oacute;n.</p>\r\n<ul>\r\n<li>N&uacute;mero de confirmaci&oacute;n: [*item_value_true-nma-app-id*]</li>\r\n<li>Nombre del inquilino: [*item_value_ahoh-name*]</li>\r\n<li>Nombre del propietario: [*item_value_a-owner-name*]</li>\r\n<li>Direcci&oacute;n de la unidad: [*item_value_aaddress*]</li>\r\n</ul>\r\n<p>Como recordatorio, todas las solicitudes para SC Stay Plus ser&aacute;n procesadas a medida que se reciban.</p>\r\n<p><span style=&#34;text-decoration: underline; color: #ff0000;&#34;><strong>ADVERTENCIA: Esta solicitud no est&aacute; completa hasta que se env&iacute;en todos los documentos requeridos.</strong></span></p>\r\n<p>Es importante que env&iacute;e todos los documentos necesarios lo antes posible para evitar cualquier retraso en el procesamiento de su solicitud. Para subir los documentos necesarios, haga clic <a href=&#34;https://southcarolina.onlinepha.com/es-ES/Upload/&#34;><strong>AQU&Iacute;</strong></a>.</p>\r\n<p>Una lista de los documentos aceptados junto con informaci&oacute;n importante del programa est&aacute; disponible en el portal de aplicaciones SC Stay Plus: <a href=&#34;https://southcarolina.onlinepha.com/es-ES&#34;>https://southcarolina.onlinepha.com/</a></p>\r\n<p>&iquest;Tiene preguntas adicionales? Vea nuestras preguntas frecuentes <a href=&#34;https://southcarolina.onlinepha.com/es-ES/Pages/View/124/faqs&#34;>[AQU&Iacute;]</a> o llame a nuestro equipo de atenci&oacute;n al cliente al (803) 336-3420, de lunes a viernes de 8am-5pm EST. Tambi&eacute;n puede comunicarse con nosotros respondiendo a este correo electr&oacute;nico.</p>\r\n<p>Complete el enlace de la encuesta <a href=&#34;https://survey.guidehouse.com/jfe/form/SV_ex7obeyZiTxj85o&#34;>AQU&Iacute;</a>, respecto a su experiencia con la solicitud. Su participaci&oacute;n es muy apreciada.</p>",
+          "useGlobiflowSmtp": 0
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_aphone*]!= null"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "message",
+          "stepFunction": "customPrep",
+          "eval": "&#34;Your application has been received by SC Stay Plus Emergency Rental Assistance Program. We have sent an email with further instructions or visit our portal at https://southcarolina.onlinepha.com/. You have limited time to upload the necessary supporting documentation to complete your application submission. Application ID: &#34;.[*item_value_true-nma-app-id*].&#34; &#34;"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "phone",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#39;/\\s+/&#39;, &#39;&#39;,preg_replace(&#34;/[^0-9]/&#34;,&#34; &#34;,&#39;current(array_slice( explode( &#34;:&#34;, [*item_value_aphone*] )))&#39;))"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "json",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;Application Number&#39; =&gt; [*item_value_true-nma-app-id*],\r\n  &#39;Status&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;Message&#39; =&gt; [*item_value_pfprepfield:message*],\r\n&#39;phone&#39; =&gt; [*item_value_pfprepfield:phone*],\r\n))"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://prod-173.westus.logic.azure.com:443/workflows/9d338b6ef4e74ebaa407443617deb9de/triggers/manual/paths/invoke?api-version=2016-06-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=bnOhbMZ6Mu4Z9XuU5MOxw594zZSl_W5GfsAWV1tVSfE&#34;"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "flow",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:json*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-email*] == &#34;No&#34;"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": "1",
+          "auth": "app",
+          "message": "# Automated Email Blocked\r\nStaff review updated this item to &#34;Send Email: No&#34;"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815355.xml",
+    "dateProcessed": "20221118 165614"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create- add comment and update state status",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27948911",
+      "appName": "State Quality Control",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_data-set-quality-assurance*]!=null"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "QC reviewer: [*item_value_current-reviewer*]\r\nQC Result: [*item_value_qc-outcome*]\r\nComments: \r\n[*item_value_qccomments*]\r\nDate: [*item_value_current_date_time*]"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27948911",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "245321660",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "commentCollected",
+        "stepDetails": {
+          "stepFunction": "commentCollected",
+          "silent": 0,
+          "collectedAppId": "27254226",
+          "auth": "app",
+          "message": "QC reviewer: [*item_value_current-reviewer*]\r\nQC Result: [*item_value_qc-outcome*]\r\nComments: \r\n[*item_value_qccomments*]\r\nDate:[*item_value_current_date_time*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495931",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_qc-outcome*]"
+            },
+            "1": {
+              "fieldId": "236495934",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "2": {
+              "fieldId": "236495935",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_current-reviewer*]"
+            },
+            "3": {
+              "fieldId": "245839823",
+              "type": "app",
+              "function": "find",
+              "value": {
+                "related": "27247427",
+                "field": "236417250",
+                "searchcond": "eq",
+                "value": "[*item_value_current-reviewer*]"
+              }
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-3140741.xml",
+    "dateProcessed": "20221118 171018"
+  },
+  "_id": "3140741"
+}

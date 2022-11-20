@@ -1,0 +1,42 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On create - Reason for Adjustment - Add Comment",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247441",
+      "appName": "Clawbacks and Payment Inquiries",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "comm",
+          "stepFunction": "customPrep",
+          "eval": "strip_tags([*item_value_reason-for-adjustment*])"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "[*item_value_pfprepfield:comm*]"
+        }
+      }
+    },
+    "filename": "flow-3058851.xml",
+    "dateProcessed": "20221118 165607"
+  }
+}

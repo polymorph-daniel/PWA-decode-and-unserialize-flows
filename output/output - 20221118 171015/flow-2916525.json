@@ -1,0 +1,88 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update | Pre-Payment Log Status Fields",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495742"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236495745"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236495930"
+        }
+      },
+      "step3": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236495931"
+        }
+      },
+      "step4": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236495932"
+        }
+      },
+      "step5": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236495933"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2916544"
+          }
+        }
+      }
+    },
+    "filename": "flow-2916525.xml",
+    "dateProcessed": "20221118 171028"
+  },
+  "_id": "2916525"
+}

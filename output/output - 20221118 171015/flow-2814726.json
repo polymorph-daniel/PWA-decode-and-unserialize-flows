@@ -1,0 +1,151 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update - status",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247435",
+      "appName": "Email Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417837"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "or",
+          "stepFunction": "fieldChanged",
+          "field": "236417835"
+        }
+      },
+      "step2": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "ne",
+          "user": "1406952"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_last-direction*]==&#34;Outbound&#34; &amp;&amp; [*item_value_last-direction*]==&#34;Outbound&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417835",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_last-direction*]==&#34;Inbound&#34; &amp;&amp; [*item_value_last-direction*] ==&#34;Inbound&#34;"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417835",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            }
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_email-status*]==&#34;Opened&#34; &amp;&amp; [*item_value_last-direction*]==&#34;Outbound&#34; &amp;&amp; [*item_value_email-status*]==&#34;Sent&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417835",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814726.xml",
+    "dateProcessed": "20221118 171024"
+  },
+  "_id": "2814726"
+}

@@ -1,0 +1,456 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create | Tenant Payment Address Validation | Mailing Address Options",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247437",
+      "appName": "Pre-Payment Log",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_line-37*]==null"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_paymententitytype*] ==&#34;Tenant&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27247437",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417879",
+            "action_2": "follow",
+            "app_2": "27247430",
+            "direction_2": "forward",
+            "field_2": "236495782",
+            "action_3": "done"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:update-tenant-address*]==null"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "&#34;Application Address&#34; == &#34;Application Address&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine1",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddress|address*]"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine2",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddress-line-2*]"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "City",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddress|city*]"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "State",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddress|state*]"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Zip",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddress|postal_code*]"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:Zip*] == &#34;&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine1",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddressline1*]"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine2",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddressline2*]"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "City",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddresscity*]"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "State",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddressstate*]"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Zip",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aaddresszip*]"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:mailing-address-line-1*] != &#34;&#34;"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine1",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:mailing-address-line-1*]"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine2",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:mailing-address-line-2*]"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "City",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:mailing-address-city*]"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "State",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:mailing-address-state*]"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Zip",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:mailing-address-zip-code*]"
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:update-tenant-address*]!=null"
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine1",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247430:update-tenant-addressaddress-line-1*]"
+        }
+      },
+      "step29": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "AddressLine2",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247430:update-tenant-addressaddress-line-2*]"
+        }
+      },
+      "step30": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "City",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247430:update-tenant-addresscity*]"
+        }
+      },
+      "step31": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "State",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247430:update-tenant-addressstate*]"
+        }
+      },
+      "step32": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Zip",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27247430:update-tenant-addresszip-code*]"
+        }
+      },
+      "step33": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step34": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://personator.melissadata.net/v3/WEB/ContactVerify/doContactVerify&#34;"
+        }
+      },
+      "step35": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "melissa",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "GET",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "format=json&amp;id=bvKSktWzGhScKExH-67sRq**nSAcwXpxhQ0PC2lXxuDAZ-**&amp;act=Check&amp;t=&#34;RH&#34;&amp;a1=[*item_value_pfprepfield:AddressLine1*]&amp;a2=[*item_value_pfprepfield:AddressLine2*]&amp;postal=[*item_value_pfprepfield:Zip*]&amp;city=[*item_value_pfprepfield:City*]&amp;state=[*item_value_pfprepfield:State*]",
+            "post": "",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step36": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "return",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:melissa*]"
+        }
+      },
+      "step37": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "md1",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;AddressLine1&#34;]"
+        }
+      },
+      "step38": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "md2",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;AddressLine2&#34;]"
+        }
+      },
+      "step39": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdcity",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;City&#34;]"
+        }
+      },
+      "step40": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdstate",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;State&#34;]"
+        }
+      },
+      "step41": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "mdzip",
+          "stepFunction": "customPrep",
+          "eval": "json_decode([*item_value_pfprepfield:return*],true)[&#39;Records&#39;][0][&#34;PostalCode&#34;]"
+        }
+      },
+      "step42": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417918",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:md1*] [*item_value_pfprepfield:md2*]"
+            },
+            "1": {
+              "fieldId": "236417919",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdcity*]"
+            },
+            "2": {
+              "fieldId": "236417920",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdstate*]"
+            },
+            "3": {
+              "fieldId": "236417921",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:mdzip*]"
+            }
+          }
+        }
+      },
+      "step43": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step44": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2906444.xml",
+    "dateProcessed": "20221118 171021"
+  },
+  "_id": "2906444"
+}

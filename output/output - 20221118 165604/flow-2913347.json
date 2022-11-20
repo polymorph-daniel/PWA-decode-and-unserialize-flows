@@ -1,0 +1,126 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Set Up",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27509444",
+      "appName": "Possible Misrepresentation of Information",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "landlord",
+          "stepFunction": "customPrep",
+          "eval": "&#39;&#39;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "SCIES",
+          "stepFunction": "customPrep",
+          "eval": "&#39;&#39;"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27509444",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "239377363",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "landlord",
+          "stepFunction": "customPrep",
+          "eval": "trim(([*item_value_pfref:27254226:owner-name-on-taxbill*].&#39;,&#39;.[*item_value_pfprepfield:landlord*]),&#39;,&#39;)"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "SCIES",
+          "stepFunction": "customPrep",
+          "eval": "trim(([*item_value_pfref:27254226:scid*].&#39;,&#39;.[*item_value_pfprepfield:landlord*]),&#39;,&#39;)"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "239377364",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date_and_time*]"
+            },
+            "1": {
+              "fieldId": "239377377",
+              "type": "category",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $result = &#34;&#34;;\r\n  $denial = [*item_value_denial-notice-sent*];\r\n\r\n  $result = $denial;\r\n\r\n  if($result == &#34;&#34;){\r\n    $result = &#34;Pending&#34;;\r\n  }\r\n  return $result;\r\n}"
+            },
+            "2": {
+              "fieldId": "239506139",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $result = &#34;&#34;;\r\n  $scies = [*item_value_scies-id-2*];\r\n\r\n  $result = $scies;\r\n\r\n  if($result == &#34;&#34;){\r\n    $result = [*item_value_pfprepfield:SCIES*];\r\n  }\r\n  return $result;\r\n}"
+            },
+            "3": {
+              "fieldId": "239506093",
+              "type": "text",
+              "function": "calc",
+              "value": "foo(); function foo() {\r\n  $result = &#34;&#34;;\r\n  $landlord = [*item_value_landlord-name*];\r\n\r\n  $result = $landlord;\r\n\r\n  if($result == &#34;&#34;){\r\n    $result = [*item_value_pfprepfield:landlord*];\r\n  }\r\n  return $result;\r\n}"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2913347.xml",
+    "dateProcessed": "20221118 165607"
+  }
+}

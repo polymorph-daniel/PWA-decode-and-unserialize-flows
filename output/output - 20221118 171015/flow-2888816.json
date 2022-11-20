@@ -1,0 +1,110 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "\u03a9 Cleaning up Caleb Kinlaw",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247421",
+      "appName": "EMails",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417145"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "revisorMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "revisorMatch",
+          "operator": "eq",
+          "user": "11525391"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247421",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "forward",
+            "field_1": "236417145",
+            "action_2": "done"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "emailList",
+          "stepFunction": "customPrep",
+          "eval": "&#39;&#39;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27254226*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "emailList",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfref:27254226:aemail*].&#39;,&#39;.[*item_value_pfprepfield:emailList*]"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417141",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_pfprepfield:emailList*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2888816.xml",
+    "dateProcessed": "20221118 171026"
+  },
+  "_id": "2888816"
+}

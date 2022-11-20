@@ -1,0 +1,680 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Create Application Item",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247429",
+      "appName": "Data Set - Applications",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_item_created_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "date",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_date_created_on*]"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27254226",
+            "field": "236495721",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_aapnmaappid*]"
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*]==null"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495721",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_appnumber*]"
+            },
+            "1": {
+              "fieldId": "236495740",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            },
+            "2": {
+              "fieldId": "236495741",
+              "type": "category",
+              "function": "value",
+              "value": "4"
+            },
+            "3": {
+              "fieldId": "236495742",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            },
+            "4": {
+              "fieldId": "236495743",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "5": {
+              "fieldId": "236495745",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapnamefirst*] [*item_value_aapnamelast*]"
+            },
+            "6": {
+              "fieldId": "236495746",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_applicationlanguage*]"
+            },
+            "7": {
+              "fieldId": "236495747",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapalternateid*]"
+            },
+            "8": {
+              "fieldId": "236495748",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapssn*]"
+            },
+            "9": {
+              "fieldId": "236495749",
+              "type": "date",
+              "function": "value",
+              "value": "[*item_field_aapdob*]"
+            },
+            "10": {
+              "fieldId": "236495750",
+              "type": "location",
+              "function": "value",
+              "value": "[*item_value_aapaddressfull*]"
+            },
+            "11": {
+              "fieldId": "236495751",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddressline2*]"
+            },
+            "12": {
+              "fieldId": "236495752",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_amdunitcounty*]"
+            },
+            "13": {
+              "fieldId": "236495756",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitmak*]"
+            },
+            "14": {
+              "fieldId": "236495757",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitbmak*]"
+            },
+            "15": {
+              "fieldId": "236495758",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapethnicity*]"
+            },
+            "16": {
+              "fieldId": "236495759",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aaprace*]"
+            },
+            "17": {
+              "fieldId": "236495760",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapgender*]"
+            },
+            "18": {
+              "fieldId": "236495761",
+              "type": "phone",
+              "function": "value",
+              "value": "[*item_value_aapphone*]"
+            },
+            "19": {
+              "fieldId": "236495762",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_aapemail*]"
+            },
+            "20": {
+              "fieldId": "236495763",
+              "type": "date",
+              "function": "value",
+              "value": "[*current_date*]"
+            },
+            "21": {
+              "fieldId": "236495764",
+              "type": "number",
+              "function": "value",
+              "value": "[*item_value_atotalmemberscalc*]"
+            },
+            "22": {
+              "fieldId": "236495765",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_agrossannualincome*]"
+            },
+            "23": {
+              "fieldId": "236495766",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_aleasemonthlycontractrent*]"
+            },
+            "24": {
+              "fieldId": "236495768",
+              "type": "text",
+              "function": "calc",
+              "value": "[*item_value_aleaseownerpropertymanageraddressline1*].&#34; &#34;.[*item_value_aleaseownerpropertymanageraddressline2*].&#34;, &#34;.[*item_value_aleaseownerpropertymanageraddresscity*].&#34;, &#34;.[*item_value_aleaseownerpropertymanageraddressstate*].&#34; &#34;.[*item_value_aleaseownerpropertymanageraddresspostalcode*]"
+            },
+            "25": {
+              "fieldId": "236495769",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aownermak*]"
+            },
+            "26": {
+              "fieldId": "236495770",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aownerbmak*]"
+            },
+            "27": {
+              "fieldId": "236495771",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aleasephone*]"
+            },
+            "28": {
+              "fieldId": "236495772",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_aleaseemail*]"
+            },
+            "29": {
+              "fieldId": "236495773",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_apercentami*]"
+            },
+            "30": {
+              "fieldId": "236495775",
+              "type": "category",
+              "function": "value",
+              "value": "3"
+            },
+            "31": {
+              "fieldId": "236495872",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddressline1*]"
+            },
+            "32": {
+              "fieldId": "236495873",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddressline2*]"
+            },
+            "33": {
+              "fieldId": "236495874",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddresscity*]"
+            },
+            "34": {
+              "fieldId": "236495875",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddressstate*]"
+            },
+            "35": {
+              "fieldId": "236495876",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapaddresspostalcode*]"
+            },
+            "36": {
+              "fieldId": "236495877",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_amdunitcounty*]"
+            },
+            "37": {
+              "fieldId": "236495879",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapnamefirst*]"
+            },
+            "38": {
+              "fieldId": "236495880",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aapnamelast*]"
+            },
+            "39": {
+              "fieldId": "236495961",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiesgascompany*]"
+            },
+            "40": {
+              "fieldId": "236495962",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiesgasaccountnumber*]"
+            },
+            "41": {
+              "fieldId": "236495963",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiesotherpleaseprovidenameofgascompany*]"
+            },
+            "42": {
+              "fieldId": "236495964",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedforgas*]"
+            },
+            "43": {
+              "fieldId": "236495965",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitieselectriccompany*]"
+            },
+            "44": {
+              "fieldId": "236495966",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitieselectricaccountnumber*]"
+            },
+            "45": {
+              "fieldId": "236495967",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiesotherpleaseprovidenameelectriccompany*]"
+            },
+            "46": {
+              "fieldId": "236495968",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedforelectric*]"
+            },
+            "47": {
+              "fieldId": "236495969",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitieswatercompany2*]"
+            },
+            "48": {
+              "fieldId": "236495970",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitieswateraccountnumber*]"
+            },
+            "49": {
+              "fieldId": "236495971",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedforwater*]"
+            },
+            "50": {
+              "fieldId": "236495972",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiessewercompany*]"
+            },
+            "51": {
+              "fieldId": "236495973",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiesseweraccountnumber*]"
+            },
+            "52": {
+              "fieldId": "236495974",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedforsewer*]"
+            },
+            "53": {
+              "fieldId": "236495975",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiestrashcompany*]"
+            },
+            "54": {
+              "fieldId": "236495976",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_autilitiestrashaccountnumber*]"
+            },
+            "55": {
+              "fieldId": "236495977",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedfortrash*]"
+            },
+            "56": {
+              "fieldId": "236495978",
+              "type": "money",
+              "function": "value",
+              "value": "[*item_value_autilitiestotalowedutilities*]"
+            },
+            "57": {
+              "fieldId": "236495867",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aipaddress*]"
+            },
+            "58": {
+              "fieldId": "236495868",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_entryid*]"
+            },
+            "59": {
+              "fieldId": "236495840",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_reviewlink*]"
+            },
+            "60": {
+              "fieldId": "236495870",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "61": {
+              "fieldId": "237248348",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-line-1*]"
+            },
+            "62": {
+              "fieldId": "237248347",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-line-2*]"
+            },
+            "63": {
+              "fieldId": "237248346",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-city*]"
+            },
+            "64": {
+              "fieldId": "237248345",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-state*]"
+            },
+            "65": {
+              "fieldId": "237248344",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-zip-code*]"
+            },
+            "66": {
+              "fieldId": "237248343",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_is-your-mailing-address-different-than-the-address-list*]"
+            },
+            "67": {
+              "fieldId": "236495950",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_acvtdevictionnoticerecevied-cat*]"
+            },
+            "68": {
+              "fieldId": "236495767",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aleaseownerpropertymanagername*]"
+            },
+            "69": {
+              "fieldId": "243288642",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_howdidyouhearaboutscplus*]"
+            },
+            "70": {
+              "fieldId": "236495780",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27254226:podio_item_id*]!=null"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495752",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_amdunitcounty*]"
+            },
+            "1": {
+              "fieldId": "236495877",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_amdunitcounty*]"
+            },
+            "2": {
+              "fieldId": "236495756",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitmak*]"
+            },
+            "3": {
+              "fieldId": "236495757",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aunitbmak*]"
+            },
+            "4": {
+              "fieldId": "236495768",
+              "type": "text",
+              "function": "calc",
+              "value": "[*item_value_aleaseownerpropertymanageraddressline1*].&#34; &#34;.[*item_value_aleaseownerpropertymanageraddressline2*].&#34;, &#34;.[*item_value_aleaseownerpropertymanageraddresscity*].&#34;, &#34;.[*item_value_aleaseownerpropertymanageraddressstate*].&#34; &#34;.[*item_value_aleaseownerpropertymanageraddresspostalcode*]"
+            },
+            "5": {
+              "fieldId": "236495769",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aownermak*]"
+            },
+            "6": {
+              "fieldId": "236495770",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aownerbmak*]"
+            },
+            "7": {
+              "fieldId": "236495771",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_aleasephone*]"
+            },
+            "8": {
+              "fieldId": "236495772",
+              "type": "email",
+              "function": "value",
+              "value": "[*item_value_aleaseemail*]"
+            },
+            "9": {
+              "fieldId": "236495870",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            },
+            "10": {
+              "fieldId": "236495950",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_acvtdevictionnoticerecevied-cat*]"
+            },
+            "11": {
+              "fieldId": "236495780",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_mailing-address-line-1*]!=&#34;&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "237248348",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-line-1*]"
+            },
+            "1": {
+              "fieldId": "237248347",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-line-2*]"
+            },
+            "2": {
+              "fieldId": "237248346",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-city*]"
+            },
+            "3": {
+              "fieldId": "237248345",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-state*]"
+            },
+            "4": {
+              "fieldId": "237248344",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_mailing-address-zip-code*]"
+            },
+            "5": {
+              "fieldId": "237248343",
+              "type": "category",
+              "function": "calc",
+              "value": "[*item_value_is-your-mailing-address-different-than-the-address-list*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2814974.xml",
+    "dateProcessed": "20221118 165452"
+  }
+}

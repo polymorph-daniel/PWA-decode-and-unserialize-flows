@@ -1,0 +1,180 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Tier II Escalation",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27805566",
+      "appName": "Call Center Tickets",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "242883764"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "242883740",
+          "operator": "eq",
+          "value": "Tier II"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "searchApp",
+        "stepDetails": {
+          "stepFunction": "searchApp",
+          "values": {
+            "app": "27247427",
+            "field": "236417250",
+            "condition": "eq",
+            "ignoreself": 0,
+            "value": "[*item_value_current_revision_by*]"
+          }
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "autho",
+          "stepFunction": "customPrep",
+          "eval": "stristr([*item_value_pfref:27247427:call-center-role*],&#34;Escalations&#34;)"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:autho*] ==  &#34;FALSE&#34;"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "getPrevious",
+        "stepDetails": {
+          "stepFunction": "getPrevious"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "242883763",
+              "type": "category",
+              "function": "value",
+              "value": "[*item_value_pfprev:status*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "You are not authorized to send items to Tier II "
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:autho*] ==  &#34;TRUE&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "createItem",
+        "stepDetails": {
+          "stepFunction": "createItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "createAppId": "27247440",
+          "values": {
+            "0": {
+              "fieldId": "236418035",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_current_revision_by*]"
+            },
+            "1": {
+              "fieldId": "236418042",
+              "type": "text",
+              "function": "value",
+              "value": "[*item_value_details-3*]"
+            },
+            "2": {
+              "fieldId": "244719458",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_id*]"
+            }
+          }
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "244714945",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfnew:27247440*]"
+            }
+          }
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-3100995.xml",
+    "dateProcessed": "20221118 165608"
+  }
+}

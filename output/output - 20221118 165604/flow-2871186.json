@@ -1,0 +1,270 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Update - Reassign Staff",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27247427",
+      "appName": "Project Staff",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236417267"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldValueMatch",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldValueMatch",
+          "field": "236417267",
+          "operator": "eq",
+          "value": "Reassign All"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assign-supervisor-to*] == null &amp;&amp; [*item_value_assign-reviewer-to*] == null"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "The Field &#34;Assign Supervisor Role To:&#34; or &#34;Assign Reviewer Role To:&#34; must be filled out to mass reassign cases."
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236417267",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assign-supervisor-to*] != null &amp;&amp; [*item_value_assign-reviewer-to*] != null"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Reassigning Supervisor Role to [*item_value_assign-supervisor-to*] and Reviewer Role to [*item_value_assign-reviewer-to*]"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247427",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "both",
+            "action_2": "done"
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495727",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_assign-supervisor-to*]"
+            },
+            "1": {
+              "fieldId": "236495728",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_assign-reviewer-to*]"
+            }
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assign-supervisor-to*] != null &amp;&amp; [*item_value_assign-reviewer-to*] == null"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Reassigning Supervisor Role to [*item_value_assign-supervisor-to*]"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247427",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "reverse",
+            "field_1": "236495727",
+            "action_2": "done"
+          }
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495727",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_assign-supervisor-to*]"
+            }
+          }
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_assign-supervisor-to*] == null &amp;&amp; [*item_value_assign-reviewer-to*] != null"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "Reassigning Reviewer Role to [*item_value_assign-reviewer-to*]"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27247427",
+            "action_1": "follow",
+            "app_1": "27254226",
+            "direction_1": "reverse",
+            "field_1": "236495728",
+            "action_2": "done"
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "updateCollected",
+        "stepDetails": {
+          "stepFunction": "updateCollected",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "collectedAppId": "27254226",
+          "values": {
+            "0": {
+              "fieldId": "236495728",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_assign-reviewer-to*]"
+            }
+          }
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2871186.xml",
+    "dateProcessed": "20221118 165605"
+  }
+}

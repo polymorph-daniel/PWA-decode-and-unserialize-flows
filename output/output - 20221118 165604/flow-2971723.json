@@ -1,0 +1,261 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual | Application Status update sends data to Portal | v2",
+      "version": "2",
+      "description": "DG 6-18: New version of status going into the portal.\r\nDG 6-20: Simplified status&#39; per DRAFT_v3",
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247430",
+            "direction_1": "forward",
+            "field_1": "236495782",
+            "action_2": "done"
+          }
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "3",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247424",
+            "direction_1": "forward",
+            "field_1": "236495806",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "amt",
+          "stepFunction": "customPrep",
+          "eval": "([*item_value_rapplication-status*]  == &#34;Pending Payment Processing&#34;) ? [*item_value_pfref:27247430:total-assistance-approved*]: ([*item_value_rapplication-status*]  == &#34;Payment Import&#34;) ?  [*item_value_pfref:27247430:total-assistance-approved*] : ([*item_value_rapplication-status*]  == &#34;Payment Sent&#34;) ?  [*item_value_pfref:27247430:total-assistance-approved*] : &#34;0.00&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "statusportal",
+          "stepFunction": "customPrep",
+          "eval": "([*item_value_rapplication-status*] == &#34;Payment Sent&#34;) ? &#34;Payment Sent&#34; : ([*item_value_sub-status*] == &#34;Approved&#34;) ? &#34;Payment Sent&#34; : \r\n[*item_value_sub-status*]"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "statusportal",
+          "stepFunction": "customPrep",
+          "eval": "foo(); function foo() {\r\n  $result = &#34;&#34;;\r\n\r\n  $overallStatus = [*item_value_overall-status*];\r\n  $subStatus = [*item_value_sub-status*];\r\n  $rApplicationStatus = [*item_value_rapplication-status*];\r\n\r\n\r\n  if($rApplicationStatus == &#34;Priority Review&#34; ||\r\n     $rApplicationStatus == &#34;Pending Review&#34;\r\n  ){\r\n    $result = &#34;Received&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Reviewed&#34; ||\r\n     $rApplicationStatus == &#34;Only Missing Owner Clearance&#34;\r\n  ){\r\n    $result = &#34;Missing Documentation&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Pending Quality Control Review&#34; ||\r\n     $rApplicationStatus == &#34;Pending Payment Processing&#34;\r\n  ){\r\n    $result = &#34;Final Review&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Payment Sent&#34;\r\n  ){\r\n    $result = &#34;Payment Sent&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Payment Import&#34; ||\r\n     $rApplicationStatus == &#34;Partial Payment&#34;\r\n  ){\r\n    $result = &#34;Payment Processing&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Close Out&#34;\r\n  ){\r\n    $result = &#34;Closed Out - Application Closed (Missing Documents)&#34;;\r\n  }\r\n\r\n  if($rApplicationStatus == &#34;Denial Pending&#34; ||\r\n     $rApplicationStatus == &#34;Denied&#34; ||\r\n     $rApplicationStatus == &#34;Close Out Finalized&#34;\r\n  ){\r\n    $result = &#34;Not Eligible&#34;;\r\n  }\r\n\r\n  if($result == &#34;&#34;\r\n  ){\r\n    $result = &#34;Received&#34;;\r\n  }\r\n  \r\n  return $result;\r\n}"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "MonthlyRent",
+          "stepFunction": "customPrep",
+          "eval": "strval([*item_value_amonthly-rent*])"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "OwnerInfo",
+          "stepFunction": "customPrep",
+          "eval": "strval([*item_value_pfref:27247424:owner-name*].&#34;,&#34;.[*item_value_pfref:27247424:address*].&#34;,&#34;.[*item_value_pfref:27247424:address*].&#34;,&#34;.[*item_value_pfref:27247424:city*].&#34;,&#34;.[*item_value_pfref:27247424:state*].&#34;,&#34;.[*item_value_pfref:27247424:auth-phone*].&#34;,&#34;.[*item_value_pfref:27247424:auth-email*])"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247430:total-assistance-approved*] != null"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;UniqueID&#39; =&gt; [*item_value_nma-app-id*],\r\n  &#39;ApplicationDate&#39; =&gt; [*item_value_adate-application-received*],\r\n  &#39;ApplicationStatus&#39; =&gt; [*item_value_pfprepfield:statusportal*],\r\n  &#39;ApplicationDecisionDate&#39; =&gt; [*item_value_rapproved-date*],\r\n  &#39;ApprovedAmount&#39; =&gt; strval([*item_value_pfprepfield:amt*]),\r\n  &#39;DatePaymentExpected&#39; =&gt; [*item_value_paymentrundate*],\r\n  &#39;InternalStatus&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;MemberCount&#39; =&gt; [*item_value_afamily-size*],\r\n  &#39;MonthlyRent&#39; =&gt; [*item_value_pfprepfield:MonthlyRent*],\r\n  &#39;OwnerInfo&#39; =&gt; [*item_value_pfprepfield:OwnerInfo*]\r\n))"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfref:27247430:total-assistance-approved*] == null "
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;UniqueID&#39; =&gt; [*item_value_nma-app-id*],\r\n  &#39;ApplicationDate&#39; =&gt; [*item_value_adate-application-received*],\r\n  &#39;ApplicationStatus&#39; =&gt; [*item_value_pfprepfield:statusportal*],\r\n  &#39;ApplicationDecisionDate&#39; =&gt; [*item_value_rapproved-date*],\r\n  &#39;ApprovedAmount&#39; =&gt; &#34;0.00&#34;,\r\n  &#39;DatePaymentExpected&#39; =&gt; [*item_value_paymentrundate*],\r\n  &#39;InternalStatus&#39; =&gt; [*item_value_rapplication-status*],\r\n  &#39;MemberCount&#39; =&gt; [*item_value_afamily-size*],\r\n  &#39;MonthlyRent&#39; =&gt; [*item_value_pfprepfield:MonthlyRent*],\r\n  &#39;OwnerInfo&#39; =&gt; [*item_value_pfprepfield:OwnerInfo*]\r\n))"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "URL",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://prod-165.westus.logic.azure.com:443/workflows/e69726432dec4822a3c47a63b8a4bc00/triggers/manual/paths/invoke?api-version=2016-06-01&amp;sp=%2Ftriggers%2Fmanual%2Frun&amp;sv=1.0&amp;sig=lDeKSvcB6hPRupwZMfahhO0ByYgSzzoG7QhjkDo2ZjY&#34;"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "POST",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:URL*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:JSON*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "RESULT",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:POST*]"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "addComment",
+        "stepDetails": {
+          "stepFunction": "addComment",
+          "silent": 0,
+          "auth": "app",
+          "message": "# Status Displayed in Portal\r\n[*item_value_pfprepfield:statusportal*]"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:GlobiFlow-Most-Recent-Error*] == &#34;&#34;"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "241399125",
+              "type": "category",
+              "function": "value",
+              "value": "1"
+            }
+          }
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:GlobiFlow-Most-Recent-Error*] != &#34;&#34;"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "241399125",
+              "type": "category",
+              "function": "value",
+              "value": "2"
+            }
+          }
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2971723.xml",
+    "dateProcessed": "20221118 165610"
+  }
+}

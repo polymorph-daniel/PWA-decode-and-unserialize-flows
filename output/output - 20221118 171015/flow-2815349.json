@@ -1,0 +1,294 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - update progress",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_current_revision_by*] != &#34;AVA&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "F",
+        "stepFunction": "fieldChanged",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "fieldChanged",
+          "field": "236495782"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "0"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rhousehold-members*] == &#34;Cleared&#34;"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rincome*] == &#34;Cleared&#34;"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rcovid-impact*] == &#34;Cleared&#34;"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rlease*] == &#34;Cleared&#34;"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rsubsidy*] == &#34;Cleared&#34;"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rowner*] == &#34;Cleared&#34;"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_r-utilities*] == &#34;Cleared&#34;"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rotherfees*] == &#34;Cleared&#34;"
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_rquality*] == &#34;Cleared&#34;"
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "progress",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:progress*] + 1"
+        }
+      },
+      "step29": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step30": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "percentage",
+          "stepFunction": "customPrep",
+          "eval": "([*item_value_pfprepfield:progress*]/9) * 100 "
+        }
+      },
+      "step31": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495843",
+              "type": "progress",
+              "function": "calc",
+              "value": "[*item_value_pfprepfield:percentage*]"
+            }
+          }
+        }
+      }
+    },
+    "filename": "flow-2815349.xml",
+    "dateProcessed": "20221118 171032"
+  },
+  "_id": "2815349"
+}

@@ -1,0 +1,42 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create | Melissa Data | Mailing",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "([*item_value_mailing-address-line-1*] != &#34;&#34;) ||\r\n([*item_value_mailing-address-line-2*] != &#34;&#34;) ||\r\n([*item_value_mailing-address-city*] != &#34;&#34;) ||\r\n([*item_value_mailing-address-state*] != &#34;&#34;) ||\r\n([*item_value_mailing-address-zip-code*] != &#34;&#34;)"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2913718"
+          }
+        }
+      }
+    },
+    "filename": "flow-2913723.xml",
+    "dateProcessed": "20221118 165610"
+  }
+}

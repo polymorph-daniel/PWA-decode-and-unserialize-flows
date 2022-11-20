@@ -1,0 +1,250 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "Manual - Assign staff reviewer",
+      "version": "2",
+      "description": null,
+      "triggerType": "M",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_recertified-application*]==&#34;Recertification&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247427",
+            "view": "52876995",
+            "auth": "app",
+            "limit": "10"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "false"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "sortCollected",
+        "stepDetails": {
+          "stepFunction": "sortCollected",
+          "relapp": "27247427",
+          "orderfield": "236417272",
+          "orderdir": "ASC"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247427*]"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:found*] != true"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495728",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247427*]"
+            }
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "true"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_recertified-application*]!=&#34;Recertification&#34;"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "getView",
+        "stepDetails": {
+          "stepFunction": "getView",
+          "values": {
+            "app": "27247427",
+            "view": "52876996",
+            "auth": "app",
+            "limit": "10"
+          }
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "false"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "sortCollected",
+        "stepDetails": {
+          "stepFunction": "sortCollected",
+          "relapp": "27247427",
+          "orderfield": "236417272",
+          "orderdir": "ASC"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_field_pfref:27247427*]"
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:found*] != true"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": "1",
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495728",
+              "type": "app",
+              "function": "value",
+              "value": "[*item_field_pfref:27247427*]"
+            }
+          }
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "found",
+          "stepFunction": "customPrep",
+          "eval": "true"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "clearCollected",
+        "stepDetails": {
+          "stepFunction": "clearCollected",
+          "field": "[*item_field_pfref:27247427*]"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "triggerSelf",
+        "stepDetails": {
+          "stepFunction": "triggerSelf",
+          "values": {
+            "flow": "2815385"
+          }
+        }
+      }
+    },
+    "filename": "flow-2815388.xml",
+    "dateProcessed": "20221118 171031"
+  },
+  "_id": "2815388"
+}

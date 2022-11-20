@@ -1,0 +1,137 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Create - send info to integromat to create staff review for english apps",
+      "version": "2",
+      "description": null,
+      "triggerType": "C",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "!stristr([*item_value_true-nma-app-id*], &#34;R&#34;) &amp;&amp; stristr([*item_value_true-nma-app-id*], &#34;E&#34;)"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "getReferenced",
+        "stepDetails": {
+          "stepFunction": "getReferenced",
+          "values": {
+            "steps": "2",
+            "startingApp": "27254226",
+            "action_1": "follow",
+            "app_1": "27247429",
+            "direction_1": "forward",
+            "field_1": "236495870",
+            "action_2": "done"
+          }
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "dob",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;m/d/Y&#34;, strtotime([*item_value_adate-of-birth*]));"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "ApplicationDate",
+          "stepFunction": "customPrep",
+          "eval": "date(&#34;m/d/Y&#34;, strtotime([*item_value_adate-application-received*]));"
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Phone",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#34;/(other|work|home):/ism&#34;, &#34;&#34;, [*item_value_aphone*] )"
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "Email",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#34;/(other|work|home):/ism&#34;, &#34;&#34;, [*item_value_aemail*] )"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "OwnerEmail",
+          "stepFunction": "customPrep",
+          "eval": "preg_replace(&#34;/(other|work|home):/ism&#34;, &#34;&#34;, [*item_value_aowner-email*] )"
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "json",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n\r\n&#39;CountOfMember&#39; =&gt; [*item_value_pfref:27247429:atotalmembers*],\r\n&#39;UniqueID&#39; =&gt; [*item_value_true-nma-app-id*],\r\n&#39;ApplicantName&#39; =&gt; [*item_value_ahoh-name*],\r\n&#39;Language&#39; =&gt; [*item_value_alanguage*],\r\n&#39;Address_Line1&#39; =&gt; [*item_value_pfref:27247429:aapaddressline1*],\r\n&#39;Address_Line2&#39; =&gt; [*item_value_pfref:27247429:aapaddressline2*],\r\n&#39;Address_City&#39; =&gt; [*item_value_pfref:27247429:aapaddresscity*],\r\n&#39;Address_State&#39; =&gt; [*item_value_pfref:27247429:aapaddressstate*],\r\n&#39;Address_PostalCode&#39; =&gt; [*item_value_pfref:27247429:aapaddresspostalcode*],\r\n&#39;County&#39; =&gt; [*item_value_acounty-msa*],\r\n&#39;Phone&#39; =&gt; [*item_value_pfprepfield:Phone*],\r\n&#39;Email&#39; =&gt; [*item_value_pfprepfield:Email*],\r\n&#39;DOB&#39; =&gt; [*item_value_pfprepfield:dob*],\r\n&#39;MAK&#39; =&gt; [*item_value_aunitmak*],\r\n&#39;BMAK&#39; =&gt; [*item_value_aunitbasemak*],\r\n&#39;Results&#39; =&gt; [*item_value_pfref:27247429:aunitmdresults*],\r\n&#39;ApplicationDate&#39; =&gt; [*item_value_pfprepfield:ApplicationDate*],\r\n&#39;MonthlyRent&#39; =&gt; [*item_value_amonthly-rent*],\r\n&#39;OwnerName&#39; =&gt; [*item_value_a-owner-name*],\r\n&#39;OwnerEmail&#39; =&gt; [*item_value_pfprepfield:OwnerEmail*],\r\n&#39;GasOwed&#39; =&gt; [*item_value_pfref:27247429:autilitiestotalowedforgas*],\r\n&#39;ElectricOwed&#39; =&gt; [*item_value_pfref:27247429:autilitiestotalowedforelectric*],\r\n&#39;WaterOwed&#39; =&gt; [*item_value_pfref:27247429:autilitiestotalowedforwater*],\r\n&#39;SewerOwed&#39; =&gt; [*item_value_pfref:27247429:autilitiestotalowedforsewer*],\r\n&#39;TrashOwed&#39; =&gt; [*item_value_pfref:27247429:autilitiestotalowedfortrash*],\r\n&#39;GasAccountNumber&#39; =&gt; [*item_value_pfref:27247429:autilitiesgasaccountnumber*],\r\n&#39;ElectricAccountNumber&#39; =&gt; [*item_value_pfref:27247429:autilitieselectricaccountnumber*],\r\n&#39;WaterAccountNumber&#39; =&gt; [*item_value_pfref:27247429:autilitieswateraccountnumber*],\r\n&#39;SewerAccountNumber&#39; =&gt; [*item_value_pfref:27247429:autilitiesseweraccountnumber*],\r\n&#39;TrashAccountNumber&#39; =&gt; [*item_value_pfref:27247429:autilitiestrashaccountnumber*],\r\n))"
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "url",
+          "stepFunction": "customPrep",
+          "eval": "&#34;https://hook.integromat.com/6kus411y9x5zuqpat97jwea0ntfx8lce&#34;"
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "flow",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "[*item_value_pfprepfield:url*]",
+            "get": "",
+            "post": "[*item_value_pfprepfield:json*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2840043.xml",
+    "dateProcessed": "20221118 171029"
+  },
+  "_id": "2840043"
+}

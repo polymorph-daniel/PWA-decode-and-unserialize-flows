@@ -1,0 +1,378 @@
+{
+  "root": {
+    "flow": {
+      "flowName": "On Update - Send DocuPhase - File To Json To WebHook",
+      "version": "2",
+      "description": null,
+      "triggerType": "U",
+      "triggerHour": "0",
+      "lastCron": null,
+      "fkFlowtemplates": "0",
+      "enableForUpgrade": null,
+      "deletedDateTime": null,
+      "podioAppId": "27254226",
+      "appName": "ApplicationZ",
+      "podioAppId2": "0",
+      "app2Name": null
+    },
+    "steps": {
+      "step0": {
+        "stepType": "F",
+        "stepFunction": "customFilter",
+        "stepDetails": {
+          "andOr": "and",
+          "stepFunction": "customFilter",
+          "eval": "[*item_value_files_list*] != &#34;&#34;"
+        }
+      },
+      "step1": {
+        "stepType": "A",
+        "stepFunction": "waitDelay",
+        "stepDetails": {
+          "stepFunction": "waitDelay"
+        }
+      },
+      "step2": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_send-files-to-docuphase*] == &#34;Yes&#34;"
+        }
+      },
+      "step3": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuITEMJSON",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/podio_item_get_raw.pf",
+            "get": "",
+            "post": "podio_item_id=[*item_value_podio_item_id*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step4": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuFILESJSON",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/json_get_key.pf",
+            "get": "",
+            "post": "json=[*item_value_pfprepfield:procfuITEMJSON*]&amp;key=files",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step5": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_pfprepfield:procfuFILESJSON*] != &#34;[]&#34;"
+        }
+      },
+      "step6": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuFILEIDS",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/json_get_key.pf",
+            "get": "",
+            "post": "json=[*item_value_pfprepfield:procfuFILESJSON*]&amp;key=file_id",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step7": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuFILENAME",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/json_get_key.pf",
+            "get": "",
+            "post": "json=[*item_value_pfprepfield:procfuFILESJSON*]&amp;key=name",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step8": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuFILEMIMETYPE",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/json_get_key.pf",
+            "get": "",
+            "post": "json=[*item_value_pfprepfield:procfuFILESJSON*]&amp;key=mimetype",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step9": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "index",
+          "stepFunction": "customPrep",
+          "eval": "0"
+        }
+      },
+      "step10": {
+        "stepType": "A",
+        "stepFunction": "forEach",
+        "stepDetails": {
+          "stepFunction": "forEach",
+          "field": "[*item_value_pfprep:procfuFILEIDS*]"
+        }
+      },
+      "step11": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "in_array([*item_value_pfprepfield:procfuFILEIDS*], explode(&#39;,&#39;, implode(&#34;,&#34;,array_diff(explode(&#39;,&#39;, trim([*item_value_pfprepfield:procfuFILEIDS*], &#39;[]&#39;)),explode(&#39;,&#39;, trim([*item_value_fileids*], &#39;[]&#39;))))), true)"
+        }
+      },
+      "step12": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "FILEDID",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:procfuFILEIDS*]"
+        }
+      },
+      "step13": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "FILENAME",
+          "stepFunction": "customPrep",
+          "eval": "str_replace(&#39;&#34;&#39;, &#34;&#34;, explode(&#34;,&#34;, trim([*item_value_pfprepfield:procfuFILENAME*], &#39;[]&#39;))[[*item_value_pfprepfield:index*]])"
+        }
+      },
+      "step14": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "FILEMIMETYPE",
+          "stepFunction": "customPrep",
+          "eval": "stripslashes(str_replace(&#39;&#34;&#39;, &#34;&#34;, explode(&#34;,&#34;, trim([*item_value_pfprepfield:procfuFILEMIMETYPE*], &#39;[&#34;&#34;]&#39;))[[*item_value_pfprepfield:index*]]))"
+        }
+      },
+      "step15": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "procfuCONTENT",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://procfu.com/exe/podio_file_get_base64.pf",
+            "get": "",
+            "post": "file_id=[*item_value_pfprepfield:FILEDID*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Authorization: Basic NDY2NzM5OTpwQ0FOQzlXWUVkQnI=\r\nX-ProcFu-FlowId: 2429698\r\nX-ProcFu-ItemId: [*item_value_podio_item_id*]",
+            "follow": 0
+          }
+        }
+      },
+      "step16": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "JSON",
+          "stepFunction": "customPrep",
+          "eval": "json_encode(array (\r\n  &#39;PodioItemId&#39; =&gt; [*item_value_podio_item_id*],\r\n  &#39;UniqueId&#39; =&gt; [*item_value_nma-app-id*],\r\n  &#39;FirstName&#39; =&gt; explode(&#34; &#34;, [*item_value_ahoh-name*])[0],\r\n  &#39;LastName&#39; =&gt; explode(&#34;  &#34;, [*item_value_ahoh-name*])[1],\r\n  &#39;Files&#39; =&gt; \r\n  array (\r\n    0 =&gt; \r\n    array (\r\n      &#39;FileId&#39; =&gt; [*item_value_pfprepfield:FILEDID*],\r\n      &#39;FileType&#39; =&gt; [*item_value_pfprepfield:FILENAME*],\r\n      &#39;ContentType&#39; =&gt; [*item_value_pfprepfield:FILEMIMETYPE*],\r\n      &#39;Content&#39; =&gt; [*item_value_pfprepfield:procfuCONTENT*]\r\n    ),\r\n  ),\r\n))"
+        }
+      },
+      "step17": {
+        "stepType": "A",
+        "stepFunction": "remotePost",
+        "stepDetails": {
+          "varName": "POST",
+          "stepFunction": "remotePost",
+          "values": {
+            "method": "POST",
+            "url": "https://webhooks.onlinepha.com/api/PodioFilesImporter",
+            "get": "",
+            "post": "[*item_value_pfprepfield:JSON*]",
+            "put": "",
+            "patch": "",
+            "delete": "",
+            "headers": "Content-Type: application/json",
+            "follow": 0
+          }
+        }
+      },
+      "step18": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "RESULT",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:POST*]"
+        }
+      },
+      "step19": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step20": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "index",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_pfprepfield:index*]+1"
+        }
+      },
+      "step21": {
+        "stepType": "A",
+        "stepFunction": "continue",
+        "stepDetails": {
+          "stepFunction": "continue"
+        }
+      },
+      "step22": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_fileids*] != null"
+        }
+      },
+      "step23": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "ids",
+          "stepFunction": "customPrep",
+          "eval": "[*item_value_fileids*].&#34;,&#34;.trim(implode(&#34;,&#34;,array_diff(explode(&#39;,&#39;, trim([*item_value_pfprepfield:procfuFILEIDS*], &#39;[]&#39;)),explode(&#39;,&#39;, trim([*item_value_fileids*], &#39;[]&#39;)))), &#39;[]&#39;);"
+        }
+      },
+      "step24": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495811",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step25": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step26": {
+        "stepType": "A",
+        "stepFunction": "prepFilter",
+        "stepDetails": {
+          "stepFunction": "prepFilter",
+          "eval": "[*item_value_fileids*] == null"
+        }
+      },
+      "step27": {
+        "stepType": "A",
+        "stepFunction": "customPrep",
+        "stepDetails": {
+          "varName": "ids",
+          "stepFunction": "customPrep",
+          "eval": "trim(implode(&#34;,&#34;,array_diff(explode(&#39;,&#39;, trim([*item_value_pfprepfield:procfuFILEIDS*], &#39;[]&#39;)),explode(&#39;,&#39;, trim([*item_value_fileids*], &#39;[]&#39;)))), &#39;[]&#39;);"
+        }
+      },
+      "step28": {
+        "stepType": "A",
+        "stepFunction": "updateItem",
+        "stepDetails": {
+          "stepFunction": "updateItem",
+          "silent": "1",
+          "hook": 0,
+          "auth": "app",
+          "values": {
+            "0": {
+              "fieldId": "236495811",
+              "type": "category",
+              "function": "unset"
+            }
+          }
+        }
+      },
+      "step29": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step30": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      },
+      "step31": {
+        "stepType": "A",
+        "stepFunction": "endIf",
+        "stepDetails": {
+          "stepFunction": "endIf"
+        }
+      }
+    },
+    "filename": "flow-2815337.xml",
+    "dateProcessed": "20221118 171032"
+  },
+  "_id": "2815337"
+}
